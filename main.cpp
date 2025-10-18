@@ -158,7 +158,7 @@ int main(int argc, char** argv) {
     for (auto &rc : robots) {
         rc.x = center_x;
         rc.y = center_y;
-        rc.alpha = 0.0;
+        rc.alpha = M_PI;
     }
 
     // Crea mappa
