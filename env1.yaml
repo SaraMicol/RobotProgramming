@@ -9,15 +9,14 @@ environment:
       - [5.0, 10.0, 15.0, 10.5]   # muro orizzontale 10 celle in altezza
       - [10.0, 5.0, 10.5, 15.0]   # muro verticale 10 celle in larghezza
 
-
 robots:
   - id: "1"
     frame_id: "robot1_frame"
     radius: 1
     start_position:
-      x: 30
-      y: -50
-      alpha: 0.785
+      x: 10
+      y: 8
+      alpha: 3.14159
     max_velocity:
       linear: 1.0
       angular: 0.5
@@ -26,6 +25,8 @@ robots:
         frame_id: "lidar1_frame"
         topic: "/robot1/lidar"
         beams: 180
+        angle_min: -3.14159          # -180° (sinistra)
+        angle_max: 3.14159           # +180° (destra)
         range:
           min: 0.2
           max: 10.0
@@ -36,7 +37,7 @@ robots:
     start_position:
       x: 50
       y: -55
-      alpha: 0.785
+      alpha: 3.14159
     max_velocity:
       linear: 1.0
       angular: 0.5
@@ -45,6 +46,8 @@ robots:
         frame_id: "lidar2_frame"
         topic: "/robot2/lidar"
         beams: 110
+        angle_min: -1.5708           # -90° (sinistra)
+        angle_max: 1.5708            # +90° (destra)
         range:
           min: 0.2
           max: 5.0
