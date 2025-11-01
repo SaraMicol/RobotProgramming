@@ -9,6 +9,12 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <memory>
+
+// Include LaserScan, LaserScanner e GridMap
+#include "laser_scan.h"
+#include "laser_scanner.h"
+#include "grid_map.h"
 
 // --- STRUTTURE DATI ---
 struct SensorConfig {
@@ -107,7 +113,7 @@ nav_msgs::OccupancyGrid createMap(const MapConfig &map_cfg) {
     map_msg.info.origin.position.z = 0.0;
     map_msg.info.origin.orientation.w = 1.0;
 
-    map_msg.data.resize(map_cfg.width * map_cfg.height, 0); // libero
+    map_msg.data.resize(map_cfg.width * map_cfg.height, 0);
 
     // Inserisci ostacoli
     for (const auto &obs : map_cfg.obstacles) {
@@ -125,6 +131,30 @@ nav_msgs::OccupancyGrid createMap(const MapConfig &map_cfg) {
     }
 
     return map_msg;
+}
+
+// --- CREA GRID MAP da OccupancyGrid ---
+std::shared_ptr<GridMap> createGridMap(const nav_msgs::OccupancyGrid& map_msg) {
+    auto grid_map = std::make_shared<GridMap>(map_msg.info.resolution, 
+                                               map_msg.info.height, 
+                                               map_msg.info.width);
+    
+    // Imposta l'origine e la risoluzione usando reset
+    Vector2f origin(map_msg.info.origin.position.x, map_msg.info.origin.position.y);
+    grid_map->reset(origin, map_msg.info.resolution);
+    
+    // Copia i dati della mappa
+    // OccupancyGrid: 0 = libero, 100 = occupato
+    // GridMap: valori < 127 = occupato, >= 127 = libero
+    for (int r = 0; r < grid_map->rows; ++r) {
+        for (int c = 0; c < grid_map->cols; ++c) {
+            int idx = r * grid_map->cols + c;
+            // Inverti la logica: se occupato in OccupancyGrid -> 0 in GridMap
+            grid_map->cells[idx] = (map_msg.data[idx] > 50) ? 0 : 255;
+        }
+    }
+    
+    return grid_map;
 }
 
 // --- PUBBLICA TF ---
@@ -145,7 +175,6 @@ void publishTF(tf2_ros::TransformBroadcaster &tf_broadcaster,
 
     // odom -> robot e robot -> lidar
     for (const auto &rc : robots) {
-        // odom -> robot
         geometry_msgs::TransformStamped odom_to_robot;
         odom_to_robot.header.stamp = now;
         odom_to_robot.header.frame_id = "odom";
@@ -162,13 +191,13 @@ void publishTF(tf2_ros::TransformBroadcaster &tf_broadcaster,
         odom_to_robot.transform.rotation.w = q.w();
         tf_broadcaster.sendTransform(odom_to_robot);
 
-        // robot -> sensori (lidar, ecc.)
+        // robot -> sensori
         for (const auto &s : rc.sensors) {
             geometry_msgs::TransformStamped robot_to_sensor;
             robot_to_sensor.header.stamp = now;
             robot_to_sensor.header.frame_id = rc.frame_id;
             robot_to_sensor.child_frame_id = s.frame_id;
-            robot_to_sensor.transform.translation.x = rc.radius; // davanti al robot
+            robot_to_sensor.transform.translation.x = rc.radius;
             robot_to_sensor.transform.translation.y = 0.0;
             robot_to_sensor.transform.translation.z = 0.0;
 
@@ -183,54 +212,13 @@ void publishTF(tf2_ros::TransformBroadcaster &tf_broadcaster,
     }
 }
 
-
 // --- STRUTTURA PER SENSORI ATTIVI ---
 struct ActiveSensor {
     SensorConfig cfg;
     ros::Publisher pub;
     size_t robot_index;
+    std::shared_ptr<LaserScan> laser_scan;
 };
-#include <sensor_msgs/LaserScan.h>
-#include <cmath>
-
-// --- Funzione di simulazione del LIDAR ---
-std::vector<float> simulateLaserScan(const nav_msgs::OccupancyGrid& map,
-                                     const SensorConfig& sensor,
-                                     float robot_x, float robot_y, float robot_alpha)
-{
-    std::vector<float> ranges(sensor.beams, sensor.range_max);
-
-    float angle_increment = (sensor.angle_max - sensor.angle_min) / sensor.beams;
-
-    // Scansiona ogni raggio
-    for (int i = 0; i < sensor.beams; ++i) {
-        float beam_angle = robot_alpha + sensor.angle_min + i * angle_increment;
-
-        // Prova a estendere il raggio fino al massimo range
-        for (float r = sensor.range_min; r <= sensor.range_max; r += map.info.resolution) {
-            float x = robot_x + r * cos(beam_angle);
-            float y = robot_y + r * sin(beam_angle);
-
-            int col = (x - map.info.origin.position.x) / map.info.resolution;
-            int row = (y - map.info.origin.position.y) / map.info.resolution;
-
-            // Se fuori mappa, fermati
-            if (row < 0 || row >= map.info.height || col < 0 || col >= map.info.width) {
-                ranges[i] = r;
-                break;
-            }
-
-            int idx = row * map.info.width + col;
-            if (map.data[idx] > 50) { // muro o ostacolo
-                ranges[i] = r;
-                break;
-            }
-        }
-    }
-
-    return ranges;
-}
-
 
 // --- MAIN ---
 int main(int argc, char** argv) {
@@ -243,17 +231,15 @@ int main(int argc, char** argv) {
     std::string yaml_file = "/home/lattinone/ros-multi-robot-sim/src/ros_2d_multi_robot_simulator/configs/env1.yaml";
     parseYAML(yaml_file, map_cfg, robots);
 
-   
-
     auto map_msg = createMap(map_cfg);
+    auto grid_map = createGridMap(map_msg);
 
-    // Publisher mappa e pose
     ros::Publisher map_pub = nh.advertise<nav_msgs::OccupancyGrid>("/map", 1, true);
     std::vector<ros::Publisher> pose_pubs;
     for (auto &rc : robots)
         pose_pubs.push_back(nh.advertise<geometry_msgs::PoseStamped>("/" + rc.id + "/pose", 1));
 
-    // Publisher lidar
+    // Crea LaserScan per ogni sensore
     std::vector<ActiveSensor> active_sensors;
     for (size_t ri = 0; ri < robots.size(); ++ri) {
         for (const auto &s : robots[ri].sensors) {
@@ -262,19 +248,27 @@ int main(int argc, char** argv) {
                 as.cfg = s;
                 as.robot_index = ri;
                 as.pub = nh.advertise<sensor_msgs::LaserScan>(s.topic, 1);
+                
+                // Crea LaserScan
+                as.laser_scan = std::make_shared<LaserScan>(
+                    s.range_min, s.range_max, 
+                    s.angle_min, s.angle_max, 
+                    s.beams
+                );
+                
                 active_sensors.push_back(as);
             }
         }
     }
 
     tf2_ros::TransformBroadcaster tf_broadcaster;
-
     ros::Rate rate(10);
+    float dt = 0.1; // 10 Hz
+
     while (ros::ok()) {
         ros::Time now = ros::Time::now();
         map_msg.header.stamp = now;
         map_pub.publish(map_msg);
-
         publishTF(tf_broadcaster, robots);
 
         // Pose robots
@@ -293,24 +287,54 @@ int main(int argc, char** argv) {
             pose_pubs[i].publish(p);
         }
 
-        // Simula e pubblica LaserScan
+        // Simula LaserScan usando grid_map->scanRay
         for (auto &as : active_sensors) {
-            const auto &s = as.cfg;
             const auto &rob = robots[as.robot_index];
-
-            sensor_msgs::LaserScan scan;
-            scan.header.stamp = now;
-            scan.header.frame_id = s.frame_id;
-            scan.angle_min = s.angle_min;
-            scan.angle_max = s.angle_max;
-            scan.angle_increment = (s.angle_max - s.angle_min) / s.beams;
-            scan.time_increment = 0.0;
-            scan.scan_time = 0.1;
-            scan.range_min = s.range_min;
-            scan.range_max = s.range_max;
-
-            scan.ranges = simulateLaserScan(map_msg, s, rob.x, rob.y, rob.alpha);
-            as.pub.publish(scan);
+            
+            // Calcola la pose globale del sensore
+            Isometry2f robot_pose = Isometry2f::Identity();
+            robot_pose.translation() = Vector2f(rob.x, rob.y);
+            Eigen::Rotation2Df rot(rob.alpha);
+            robot_pose.linear() = rot.toRotationMatrix();
+            
+            // Offset del sensore rispetto al robot
+            Vector2f sensor_offset(rob.radius, 0);
+            Vector2f sensor_global_pos = robot_pose * sensor_offset;
+            
+            Isometry2f sensor_pose = robot_pose;
+            sensor_pose.translation() = sensor_global_pos;
+            
+            // Simula lo scan usando grid_map->scanRay
+            float angle_increment = (as.laser_scan->angle_max - as.laser_scan->angle_min) / 
+                                   as.laser_scan->ranges.size();
+            
+            for (size_t i = 0; i < as.laser_scan->ranges.size(); ++i) {
+                float beam_angle = as.laser_scan->angle_min + angle_increment * i;
+                Vector2f d(cos(beam_angle), sin(beam_angle));
+                d = sensor_pose.linear() * d;
+                
+                // Usa il metodo scanRay della GridMap
+                as.laser_scan->ranges[i] = grid_map->scanRay(
+                    sensor_pose.translation(), 
+                    d, 
+                    as.laser_scan->range_max
+                );
+            }
+            
+            // Pubblica LaserScan
+            sensor_msgs::LaserScan scan_msg;
+            scan_msg.header.stamp = now;
+            scan_msg.header.frame_id = as.cfg.frame_id;
+            scan_msg.angle_min = as.laser_scan->angle_min;
+            scan_msg.angle_max = as.laser_scan->angle_max;
+            scan_msg.angle_increment = angle_increment;
+            scan_msg.time_increment = 0.0;
+            scan_msg.scan_time = dt;
+            scan_msg.range_min = as.laser_scan->range_min;
+            scan_msg.range_max = as.laser_scan->range_max;
+            scan_msg.ranges = as.laser_scan->ranges;
+            
+            as.pub.publish(scan_msg);
         }
 
         ros::spinOnce();
