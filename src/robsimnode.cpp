@@ -1,6 +1,8 @@
 #include <ros/ros.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/Twist.h>
+#include <nav_msgs/Odometry.h>
 #include <yaml-cpp/yaml.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/TransformStamped.h>
@@ -28,6 +30,10 @@ struct RobotConfig {
     std::string id, frame_id;
     float x, y, alpha, radius, v_lin, v_ang;
     std::vector<SensorConfig> sensors;
+    
+    // Velocità correnti (da cmd_vel)
+    float current_v_lin = 0.0;
+    float current_v_ang = 0.0;
 };
 
 struct MapConfig {
@@ -139,17 +145,12 @@ std::shared_ptr<GridMap> createGridMap(const nav_msgs::OccupancyGrid& map_msg) {
                                                map_msg.info.height, 
                                                map_msg.info.width);
     
-    // Imposta l'origine e la risoluzione usando reset
     Vector2f origin(map_msg.info.origin.position.x, map_msg.info.origin.position.y);
     grid_map->reset(origin, map_msg.info.resolution);
     
-    // Copia i dati della mappa
-    // OccupancyGrid: 0 = libero, 100 = occupato
-    // GridMap: valori < 127 = occupato, >= 127 = libero
     for (int r = 0; r < grid_map->rows; ++r) {
         for (int c = 0; c < grid_map->cols; ++c) {
             int idx = r * grid_map->cols + c;
-            // Inverti la logica: se occupato in OccupancyGrid -> 0 in GridMap
             grid_map->cells[idx] = (map_msg.data[idx] > 50) ? 0 : 255;
         }
     }
@@ -220,6 +221,26 @@ struct ActiveSensor {
     std::shared_ptr<LaserScan> laser_scan;
 };
 
+// --- AGGIORNA CINEMATICA UNICYCLE ---
+void updateUnicycleKinematics(RobotConfig &robot, float dt) {
+    // Limita le velocità ai valori massimi
+    float v_lin = std::max(-robot.v_lin, std::min(robot.v_lin, robot.current_v_lin));
+    float v_ang = std::max(-robot.v_ang, std::min(robot.v_ang, robot.current_v_ang));
+    
+    // Modello cinematico unicycle
+    // x_dot = v * cos(theta)
+    // y_dot = v * sin(theta)
+    // theta_dot = omega
+    
+    robot.x += v_lin * cos(robot.alpha) * dt;
+    robot.y += v_lin * sin(robot.alpha) * dt;
+    robot.alpha += v_ang * dt;
+    
+    // Normalizza l'angolo tra -pi e pi
+    while (robot.alpha > M_PI) robot.alpha -= 2.0 * M_PI;
+    while (robot.alpha < -M_PI) robot.alpha += 2.0 * M_PI;
+}
+
 // --- MAIN ---
 int main(int argc, char** argv) {
     ros::init(argc, argv, "robsim_node");
@@ -236,8 +257,27 @@ int main(int argc, char** argv) {
 
     ros::Publisher map_pub = nh.advertise<nav_msgs::OccupancyGrid>("/map", 1, true);
     std::vector<ros::Publisher> pose_pubs;
-    for (auto &rc : robots)
-        pose_pubs.push_back(nh.advertise<geometry_msgs::PoseStamped>("/" + rc.id + "/pose", 1));
+    std::vector<ros::Publisher> odom_pubs;
+    std::vector<ros::Subscriber> cmd_vel_subs;
+    
+    // Crea publishers e subscribers per ogni robot
+    for (size_t i = 0; i < robots.size(); ++i) {
+        pose_pubs.push_back(nh.advertise<geometry_msgs::PoseStamped>("/" + robots[i].id + "/pose", 1));
+        odom_pubs.push_back(nh.advertise<nav_msgs::Odometry>("/" + robots[i].id + "/odom", 1));
+        
+        // Subscriber cmd_vel con lambda che cattura per riferimento
+        auto callback = [&robots, i](const geometry_msgs::Twist::ConstPtr& msg) {
+            robots[i].current_v_lin = msg->linear.x;
+            robots[i].current_v_ang = msg->angular.z;
+            ROS_INFO("Robot %s received cmd_vel: v=%.2f, w=%.2f", 
+                     robots[i].id.c_str(), msg->linear.x, msg->angular.z);
+        };
+        
+        cmd_vel_subs.push_back(nh.subscribe<geometry_msgs::Twist>(
+            "/" + robots[i].id + "/cmd_vel", 10, callback));
+        
+        ROS_INFO("Robot %s: Subscribed to /%s/cmd_vel", robots[i].id.c_str(), robots[i].id.c_str());
+    }
 
     // Crea LaserScan per ogni sensore
     std::vector<ActiveSensor> active_sensors;
@@ -249,7 +289,6 @@ int main(int argc, char** argv) {
                 as.robot_index = ri;
                 as.pub = nh.advertise<sensor_msgs::LaserScan>(s.topic, 1);
                 
-                // Crea LaserScan
                 as.laser_scan = std::make_shared<LaserScan>(
                     s.range_min, s.range_max, 
                     s.angle_min, s.angle_max, 
@@ -264,15 +303,33 @@ int main(int argc, char** argv) {
     tf2_ros::TransformBroadcaster tf_broadcaster;
     ros::Rate rate(10);
     float dt = 0.1; // 10 Hz
+    
+    ROS_INFO("Simulation started. Waiting for cmd_vel commands...");
 
     while (ros::ok()) {
         ros::Time now = ros::Time::now();
+        
+        // Aggiorna cinematica di tutti i robot
+        for (auto &robot : robots) {
+            updateUnicycleKinematics(robot, dt);
+            
+            // Debug: stampa posizione ogni secondo (10 iterazioni)
+            static int counter = 0;
+            if (counter % 10 == 0) {
+                ROS_INFO("Robot %s: pos=(%.2f, %.2f) theta=%.2f vel=(%.2f, %.2f)", 
+                         robot.id.c_str(), robot.x, robot.y, robot.alpha, 
+                         robot.current_v_lin, robot.current_v_ang);
+            }
+            counter++;
+        }
+        
         map_msg.header.stamp = now;
         map_pub.publish(map_msg);
         publishTF(tf_broadcaster, robots);
 
-        // Pose robots
+        // Pubblica Pose e Odometry per ogni robot
         for (size_t i = 0; i < robots.size(); ++i) {
+            // Pose
             geometry_msgs::PoseStamped p;
             p.header.stamp = now;
             p.header.frame_id = "map";
@@ -285,26 +342,33 @@ int main(int argc, char** argv) {
             p.pose.orientation.z = q.z();
             p.pose.orientation.w = q.w();
             pose_pubs[i].publish(p);
+            
+            // Odometry
+            nav_msgs::Odometry odom;
+            odom.header.stamp = now;
+            odom.header.frame_id = "odom";
+            odom.child_frame_id = robots[i].frame_id;
+            odom.pose.pose = p.pose;
+            odom.twist.twist.linear.x = robots[i].current_v_lin;
+            odom.twist.twist.angular.z = robots[i].current_v_ang;
+            odom_pubs[i].publish(odom);
         }
 
-        // Simula LaserScan usando grid_map->scanRay
+        // Simula LaserScan
         for (auto &as : active_sensors) {
             const auto &rob = robots[as.robot_index];
             
-            // Calcola la pose globale del sensore
             Isometry2f robot_pose = Isometry2f::Identity();
             robot_pose.translation() = Vector2f(rob.x, rob.y);
             Eigen::Rotation2Df rot(rob.alpha);
             robot_pose.linear() = rot.toRotationMatrix();
             
-            // Offset del sensore rispetto al robot
             Vector2f sensor_offset(rob.radius, 0);
             Vector2f sensor_global_pos = robot_pose * sensor_offset;
             
             Isometry2f sensor_pose = robot_pose;
             sensor_pose.translation() = sensor_global_pos;
             
-            // Simula lo scan usando grid_map->scanRay
             float angle_increment = (as.laser_scan->angle_max - as.laser_scan->angle_min) / 
                                    as.laser_scan->ranges.size();
             
@@ -313,7 +377,6 @@ int main(int argc, char** argv) {
                 Vector2f d(cos(beam_angle), sin(beam_angle));
                 d = sensor_pose.linear() * d;
                 
-                // Usa il metodo scanRay della GridMap
                 as.laser_scan->ranges[i] = grid_map->scanRay(
                     sensor_pose.translation(), 
                     d, 
@@ -321,7 +384,6 @@ int main(int argc, char** argv) {
                 );
             }
             
-            // Pubblica LaserScan
             sensor_msgs::LaserScan scan_msg;
             scan_msg.header.stamp = now;
             scan_msg.header.frame_id = as.cfg.frame_id;
