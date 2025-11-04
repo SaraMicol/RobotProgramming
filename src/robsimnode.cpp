@@ -221,26 +221,57 @@ struct ActiveSensor {
     std::shared_ptr<LaserScan> laser_scan;
 };
 
-// --- AGGIORNA CINEMATICA UNICYCLE ---
-void updateUnicycleKinematics(RobotConfig &robot, float dt) {
+// --- AGGIORNA CINEMATICA UNICYCLE CON CONTROLLO COLLISIONE ---
+void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_ptr<GridMap>& grid_map) {
     // Limita le velocità ai valori massimi
     float v_lin = std::max(-robot.v_lin, std::min(robot.v_lin, robot.current_v_lin));
     float v_ang = std::max(-robot.v_ang, std::min(robot.v_ang, robot.current_v_ang));
     
-    // Modello cinematico unicycle
-    // x_dot = v * cos(theta)
-    // y_dot = v * sin(theta)
-    // theta_dot = omega
+    // Calcola la nuova posizione e orientamento
+    float new_x = robot.x + v_lin * cos(robot.alpha) * dt;
+    float new_y = robot.y + v_lin * sin(robot.alpha) * dt;
+    float new_alpha = robot.alpha + v_ang * dt;
     
-    robot.x += v_lin * cos(robot.alpha) * dt;
-    robot.y += v_lin * sin(robot.alpha) * dt;
-    robot.alpha += v_ang * dt;
+    // Normalizza l'angolo
+    while (new_alpha > M_PI) new_alpha -= 2.0 * M_PI;
+    while (new_alpha < -M_PI) new_alpha += 2.0 * M_PI;
     
-    // Normalizza l'angolo tra -pi e pi
-    while (robot.alpha > M_PI) robot.alpha -= 2.0 * M_PI;
-    while (robot.alpha < -M_PI) robot.alpha += 2.0 * M_PI;
-}
+    // Ottieni i parametri della mappa
+    float map_origin_x = grid_map->origin().x(); 
+    float map_origin_y = grid_map->origin().y(); 
+    float resolution = grid_map->resolution(); 
+    int cols = grid_map->cols;
+    
+    int col = (int)((new_x - map_origin_x) / resolution);
+    int row = (int)((new_y - map_origin_y) / resolution);
 
+    // Controlla se la nuova posizione è all'interno della mappa
+    if (row >= 0 && row < grid_map->rows && col >= 0 && col < grid_map->cols) {
+        int index = row * cols + col;
+        
+        // Verifica il valore della cella: 0 è ostacolo
+        if (grid_map->cells[index] == 0) { 
+            // Collisione! Il robot è bloccato in traslazione, ma la rotazione è permessa.
+            ROS_ERROR_THROTTLE(0.5, "🔴 Collisione FISICA! Robot %s bloccato in traslazione. Rotazione permessa.", robot.id.c_str());
+            
+            // Permetti solo l'aggiornamento dell'angolo (se v_ang != 0)
+            robot.alpha = new_alpha;
+            robot.current_v_lin = 0.0;
+            return;
+        } 
+    } else {
+        // Se il robot esce dai limiti della mappa
+        ROS_ERROR_THROTTLE(1.0, "Robot %s ha tentato di uscire dai limiti della mappa. Movimento bloccato.", robot.id.c_str());
+        robot.current_v_lin = 0.0;
+        robot.current_v_ang = 0.0;
+        return;
+    }
+    
+    // Se non c'è collisione (raggiunge questo punto solo se la collisione non è avvenuta), aggiorna la posizione
+    robot.x = new_x;
+    robot.y = new_y;
+    robot.alpha = new_alpha;
+}
 // --- MAIN ---
 int main(int argc, char** argv) {
     ros::init(argc, argv, "robsim_node");
@@ -260,17 +291,15 @@ int main(int argc, char** argv) {
     std::vector<ros::Publisher> odom_pubs;
     std::vector<ros::Subscriber> cmd_vel_subs;
     
-    // Crea publishers e subscribers per ogni robot
     for (size_t i = 0; i < robots.size(); ++i) {
         pose_pubs.push_back(nh.advertise<geometry_msgs::PoseStamped>("/" + robots[i].id + "/pose", 1));
         odom_pubs.push_back(nh.advertise<nav_msgs::Odometry>("/" + robots[i].id + "/odom", 1));
         
-        // Subscriber cmd_vel con lambda che cattura per riferimento
         auto callback = [&robots, i](const geometry_msgs::Twist::ConstPtr& msg) {
+            // Aggiorna le velocità in base al cmd_vel ricevuto,
+            // la logica di evitamento ostacoli le sovrascriverà se necessario.
             robots[i].current_v_lin = msg->linear.x;
             robots[i].current_v_ang = msg->angular.z;
-            ROS_INFO("Robot %s received cmd_vel: v=%.2f, w=%.2f", 
-                     robots[i].id.c_str(), msg->linear.x, msg->angular.z);
         };
         
         cmd_vel_subs.push_back(nh.subscribe<geometry_msgs::Twist>(
@@ -279,7 +308,6 @@ int main(int argc, char** argv) {
         ROS_INFO("Robot %s: Subscribed to /%s/cmd_vel", robots[i].id.c_str(), robots[i].id.c_str());
     }
 
-    // Crea LaserScan per ogni sensore
     std::vector<ActiveSensor> active_sensors;
     for (size_t ri = 0; ri < robots.size(); ++ri) {
         for (const auto &s : robots[ri].sensors) {
@@ -302,58 +330,15 @@ int main(int argc, char** argv) {
 
     tf2_ros::TransformBroadcaster tf_broadcaster;
     ros::Rate rate(10);
-    float dt = 0.1; // 10 Hz
+    float dt = 0.1;
     
     ROS_INFO("Simulation started. Waiting for cmd_vel commands...");
+    
+    static int counter = 0;
 
     while (ros::ok()) {
         ros::Time now = ros::Time::now();
         
-        // Aggiorna cinematica di tutti i robot
-        for (auto &robot : robots) {
-            updateUnicycleKinematics(robot, dt);
-            
-            // Debug: stampa posizione ogni secondo (10 iterazioni)
-            static int counter = 0;
-            if (counter % 10 == 0) {
-                ROS_INFO("Robot %s: pos=(%.2f, %.2f) theta=%.2f vel=(%.2f, %.2f)", 
-                         robot.id.c_str(), robot.x, robot.y, robot.alpha, 
-                         robot.current_v_lin, robot.current_v_ang);
-            }
-            counter++;
-        }
-        
-        map_msg.header.stamp = now;
-        map_pub.publish(map_msg);
-        publishTF(tf_broadcaster, robots);
-
-        // Pubblica Pose e Odometry per ogni robot
-        for (size_t i = 0; i < robots.size(); ++i) {
-            // Pose
-            geometry_msgs::PoseStamped p;
-            p.header.stamp = now;
-            p.header.frame_id = "map";
-            p.pose.position.x = robots[i].x;
-            p.pose.position.y = robots[i].y;
-            tf2::Quaternion q;
-            q.setRPY(0, 0, robots[i].alpha);
-            p.pose.orientation.x = q.x();
-            p.pose.orientation.y = q.y();
-            p.pose.orientation.z = q.z();
-            p.pose.orientation.w = q.w();
-            pose_pubs[i].publish(p);
-            
-            // Odometry
-            nav_msgs::Odometry odom;
-            odom.header.stamp = now;
-            odom.header.frame_id = "odom";
-            odom.child_frame_id = robots[i].frame_id;
-            odom.pose.pose = p.pose;
-            odom.twist.twist.linear.x = robots[i].current_v_lin;
-            odom.twist.twist.angular.z = robots[i].current_v_ang;
-            odom_pubs[i].publish(odom);
-        }
-
         // Simula LaserScan
         for (auto &as : active_sensors) {
             const auto &rob = robots[as.robot_index];
@@ -397,6 +382,116 @@ int main(int argc, char** argv) {
             scan_msg.ranges = as.laser_scan->ranges;
             
             as.pub.publish(scan_msg);
+        }
+            
+         // Aggiorna cinematica di tutti i robot
+        for (size_t i = 0; i < robots.size(); ++i) { 
+            auto &robot = robots[i];
+            
+            // --- LOGICA DI EVITAMENTO OSTCOLI ---
+            
+            // Dichiarazione delle variabili di scope (CORREZIONE)
+            float stop_distance = robot.radius + 2; 
+            float too_close_distance = robot.radius + 0.5;
+            bool obstacle_front = false; // DICHIARAZIONE AGGIUNTA
+            
+            // Variabili per memorizzare le velocità desiderate dal cmd_vel originale (CORREZIONE)
+            float desired_v_lin = robot.current_v_lin; 
+            float desired_v_ang = robot.current_v_ang; 
+            
+            for (const auto &as : active_sensors) {
+                if (as.robot_index == i) { 
+                    
+                    int num_beams = as.laser_scan->ranges.size();
+                    
+                    // Definisci i settori (Centrato su +/- 30 gradi)
+                    int front_start = (num_beams * 2) / 8;
+                    int front_end = (num_beams * 6) / 8;  
+                    
+                    // 1. Settore Frontale
+                    for (int j = front_start; j < front_end; ++j) {
+                        if (as.laser_scan->ranges[j] < stop_distance) {
+                            obstacle_front = true;
+                            
+                            if (as.laser_scan->ranges[j] < too_close_distance) {
+                                ROS_ERROR_THROTTLE(0.5, "🔴 Robot %s CRITICO! Retromarcia forzata.", robot.id.c_str());
+                                robot.current_v_lin = -0.1 * robot.v_lin; 
+                                robot.current_v_ang = std::min(robot.v_ang, 0.7f); 
+                                goto end_avoidance; 
+                            }
+                        }
+                    }
+                    
+                    if (obstacle_front) {
+                        ROS_WARN_THROTTLE(0.5, "⚠️ Robot %s: Ostacolo frontale! Esecuzione sterzata.", robot.id.c_str());
+                        
+                        robot.current_v_lin = desired_v_lin * 0.3; 
+                        
+                        // Per una sterzata più intelligente:
+                        float right_min_dist = as.laser_scan->range_max;
+                        float left_min_dist = as.laser_scan->range_max;
+
+                        // Controlla la distanza minima sui lati
+                        for (int j = front_start; j < num_beams/2; ++j) { // Lato Destro (dall'inizio del settore fino al centro)
+                             right_min_dist = std::min(right_min_dist, as.laser_scan->ranges[j]);
+                        }
+                        for (int j = num_beams/2; j < front_end; ++j) { // Lato Sinistro (dal centro fino alla fine del settore)
+                             left_min_dist = std::min(left_min_dist, as.laser_scan->ranges[j]);
+                        }
+                        
+                        if (left_min_dist > right_min_dist) {
+                            robot.current_v_ang = std::min(robot.v_ang, 1.0f); // Sinistra più libera
+                        } else {
+                            robot.current_v_ang = -std::min(robot.v_ang, 1.0f); // Destra più libera o uguali
+                        }
+                    } else {
+                        // Nessun ostacolo immediato, usa le velocità da cmd_vel
+                        robot.current_v_lin = desired_v_lin;
+                        robot.current_v_ang = desired_v_ang;
+                    }
+                    
+                    end_avoidance:;
+                    break; 
+                }
+            }
+            // --- FINE LOGICA DI EVITAMENTO OSTCOLI ---
+            
+            updateUnicycleKinematics(robot, dt, grid_map);
+            
+            if (counter % 10 == 0) {
+                ROS_INFO("Robot %s: pos=(%.2f, %.2f) theta=%.2f vel=(%.2f, %.2f)", 
+                         robot.id.c_str(), robot.x, robot.y, robot.alpha, 
+                         robot.current_v_lin, robot.current_v_ang);
+            }
+        }
+        counter++;
+        
+        map_msg.header.stamp = now;
+        map_pub.publish(map_msg);
+        publishTF(tf_broadcaster, robots);
+
+        for (size_t i = 0; i < robots.size(); ++i) {
+            geometry_msgs::PoseStamped p;
+            p.header.stamp = now;
+            p.header.frame_id = "map";
+            p.pose.position.x = robots[i].x;
+            p.pose.position.y = robots[i].y;
+            tf2::Quaternion q;
+            q.setRPY(0, 0, robots[i].alpha);
+            p.pose.orientation.x = q.x();
+            p.pose.orientation.y = q.y();
+            p.pose.orientation.z = q.z();
+            p.pose.orientation.w = q.w();
+            pose_pubs[i].publish(p);
+            
+            nav_msgs::Odometry odom;
+            odom.header.stamp = now;
+            odom.header.frame_id = "odom";
+            odom.child_frame_id = robots[i].frame_id;
+            odom.pose.pose = p.pose;
+            odom.twist.twist.linear.x = robots[i].current_v_lin;
+            odom.twist.twist.angular.z = robots[i].current_v_ang;
+            odom_pubs[i].publish(odom);
         }
 
         ros::spinOnce();
