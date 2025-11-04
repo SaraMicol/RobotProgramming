@@ -6,15 +6,36 @@ environment:
     origin_x: 0.0
     origin_y: 0.0
     obstacles:
-      - [5.0, 10.0, 15.0, 10.5]   # muro orizzontale 10 celle in altezza
-      - [10.0, 5.0, 10.5, 15.0]   # muro verticale 10 celle in larghezza
+      # --- Cornici del labirinto ---
+      - [0.0, 0.0, 50.0, 0.5]        # Muro inferiore
+      - [0.0, 49.5, 50.0, 50.0]      # Muro superiore
+      - [0.0, 0.0, 0.5, 50.0]        # Muro sinistro
+      - [49.5, 0.0, 50.0, 50.0]      # Muro destro
 
+      # --- Pareti interne orizzontali ---
+      - [1.0, 10.0, 40.0, 10.5]
+      - [10.0, 20.0, 49.0, 20.5]
+      - [0.0, 30.0, 35.0, 30.5]
+      - [15.0, 40.0, 50.0, 40.5]
+
+      # --- Pareti interne verticali ---
+      - [10.0, 0.0, 10.5, 25.0]
+      - [20.0, 15.0, 20.5, 50.0]
+      - [30.0, 0.0, 30.5, 35.0]
+      - [40.0, 25.0, 40.5, 50.0]
+
+      # --- Collegamenti trasversali per effetto "labirinto" ---
+      - [5.0, 5.0, 15.0, 5.5]
+      - [25.0, 15.0, 35.0, 15.5]
+      - [15.0, 25.0, 25.0, 25.5]
+      - [35.0, 35.0, 45.0, 35.5]
+      - [5.0, 45.0, 20.0, 45.5]
 robots:
   - id: "1"
     frame_id: "robot1_frame"
     radius: 1
     start_position:
-      x: 10
+      x: 15
       y: 8
       alpha: 3.14159
     max_velocity:
@@ -35,8 +56,8 @@ robots:
     frame_id: "robot2_frame"
     radius: 2
     start_position:
-      x: 50
-      y: -55
+      x: 15
+      y: 15
       alpha: 3.14159
     max_velocity:
       linear: 1.0

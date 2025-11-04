@@ -221,7 +221,7 @@ struct ActiveSensor {
     std::shared_ptr<LaserScan> laser_scan;
 };
 
-// --- AGGIORNA CINEMATICA UNICYCLE CON CONTROLLO COLLISIONE ---
+// --- AGGIORNA CINEMATICA UNICYCLE CON CONTROLLO COLLISIONE MIGLIORATO ---
 void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_ptr<GridMap>& grid_map) {
     // Limita le velocità ai valori massimi
     float v_lin = std::max(-robot.v_lin, std::min(robot.v_lin, robot.current_v_lin));
@@ -242,32 +242,54 @@ void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_pt
     float resolution = grid_map->resolution(); 
     int cols = grid_map->cols;
     
-    int col = (int)((new_x - map_origin_x) / resolution);
-    int row = (int)((new_y - map_origin_y) / resolution);
-
-    // Controlla se la nuova posizione è all'interno della mappa
-    if (row >= 0 && row < grid_map->rows && col >= 0 && col < grid_map->cols) {
-        int index = row * cols + col;
-        
-        // Verifica il valore della cella: 0 è ostacolo
-        if (grid_map->cells[index] == 0) { 
-            // Collisione! Il robot è bloccato in traslazione, ma la rotazione è permessa.
-            ROS_ERROR_THROTTLE(0.5, "🔴 Collisione FISICA! Robot %s bloccato in traslazione. Rotazione permessa.", robot.id.c_str());
+    // 🔧 CONTROLLO COLLISIONE MIGLIORATO: verifica TUTTE le celle nel raggio del robot
+    bool collision_detected = false;
+    
+    // Calcola quante celle occupare in base al raggio
+    int cell_radius = (int)std::ceil(robot.radius / resolution) + 1; // +1 per sicurezza
+    
+    int center_col = (int)((new_x - map_origin_x) / resolution);
+    int center_row = (int)((new_y - map_origin_y) / resolution);
+    
+    // Controlla tutte le celle in un quadrato attorno al robot
+    for (int dr = -cell_radius; dr <= cell_radius; ++dr) {
+        for (int dc = -cell_radius; dc <= cell_radius; ++dc) {
+            int row = center_row + dr;
+            int col = center_col + dc;
             
-            // Permetti solo l'aggiornamento dell'angolo (se v_ang != 0)
-            robot.alpha = new_alpha;
-            robot.current_v_lin = 0.0;
-            return;
-        } 
-    } else {
-        // Se il robot esce dai limiti della mappa
-        ROS_ERROR_THROTTLE(1.0, "Robot %s ha tentato di uscire dai limiti della mappa. Movimento bloccato.", robot.id.c_str());
+            // Verifica se la cella è dentro i limiti
+            if (row < 0 || row >= grid_map->rows || col < 0 || col >= grid_map->cols) {
+                collision_detected = true;
+                ROS_ERROR_THROTTLE(1.0, "Robot %s ha tentato di uscire dai limiti della mappa.", robot.id.c_str());
+                break;
+            }
+            
+            // Calcola la distanza dal centro del robot a questa cella
+            float cell_x = map_origin_x + (col + 0.5) * resolution;
+            float cell_y = map_origin_y + (row + 0.5) * resolution;
+            float dist = std::sqrt((cell_x - new_x)*(cell_x - new_x) + (cell_y - new_y)*(cell_y - new_y));
+            
+            // Se la cella è dentro il raggio del robot, controlla se è occupata
+            if (dist <= robot.radius) {
+                int index = row * cols + col;
+                if (grid_map->cells[index] == 0) { // 0 = ostacolo
+                    collision_detected = true;
+                    ROS_ERROR_THROTTLE(0.5, "🔴 Collisione FISICA! Robot %s bloccato in traslazione. Rotazione permessa.", robot.id.c_str());
+                    break;
+                }
+            }
+        }
+        if (collision_detected) break;
+    }
+    
+    if (collision_detected) {
+        // Permetti solo rotazione
+        robot.alpha = new_alpha;
         robot.current_v_lin = 0.0;
-        robot.current_v_ang = 0.0;
         return;
     }
     
-    // Se non c'è collisione (raggiunge questo punto solo se la collisione non è avvenuta), aggiorna la posizione
+    // Nessuna collisione, aggiorna normalmente
     robot.x = new_x;
     robot.y = new_y;
     robot.alpha = new_alpha;
@@ -391,8 +413,8 @@ int main(int argc, char** argv) {
             // --- LOGICA DI EVITAMENTO OSTCOLI ---
             
             // Dichiarazione delle variabili di scope (CORREZIONE)
-            float stop_distance = robot.radius + 2; 
-            float too_close_distance = robot.radius + 0.5;
+            float stop_distance = robot.radius + 0.5; 
+            float too_close_distance = robot.radius + 0.3;
             bool obstacle_front = false; // DICHIARAZIONE AGGIUNTA
             
             // Variabili per memorizzare le velocità desiderate dal cmd_vel originale (CORREZIONE)
@@ -438,12 +460,13 @@ int main(int argc, char** argv) {
                         for (int j = num_beams/2; j < front_end; ++j) { // Lato Sinistro (dal centro fino alla fine del settore)
                              left_min_dist = std::min(left_min_dist, as.laser_scan->ranges[j]);
                         }
-                        
+                        float turn_factor = 0.4f; // più piccolo = curva più dolce
                         if (left_min_dist > right_min_dist) {
-                            robot.current_v_ang = std::min(robot.v_ang, 1.0f); // Sinistra più libera
+                            robot.current_v_ang = std::min(robot.v_ang, robot.v_ang * turn_factor);
                         } else {
-                            robot.current_v_ang = -std::min(robot.v_ang, 1.0f); // Destra più libera o uguali
+                            robot.current_v_ang = -std::min(robot.v_ang, robot.v_ang * turn_factor);
                         }
+
                     } else {
                         // Nessun ostacolo immediato, usa le velocità da cmd_vel
                         robot.current_v_lin = desired_v_lin;
