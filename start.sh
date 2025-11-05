@@ -1,6 +1,6 @@
 #!/bin/bash
 # Start the 2D multi-robot simulator and optional tools automatically
-
+#
 CONFIG_PATH="/home/lattinone/ros-multi-robot-sim/src/ros_2d_multi_robot_simulator/configs/config1.rviz"
 
 # Controlla che il file esista davvero
