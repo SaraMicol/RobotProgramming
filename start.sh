@@ -47,25 +47,20 @@ fi
 if [ "$START_MOVEMENT" = true ]; then
     echo "[5/5] Avvio comandi di movimento robot..."
     
-    # Robot 1 - avanti + rotazione
-    xterm -title "Robot 1 cmd_vel" -hold -e "bash -i -c 'rostopic pub /1/cmd_vel geometry_msgs/Twist \"linear:
-  x: 0.5
-  y: 0.0
-  z: 0.0
-angular:
-  x: 0.0
-  y: 0.0
-  z: 0.2\" -r 10'" &
-    
-    # Robot 2 - avanti + rotazione opposta
-    xterm -title "Robot 2 cmd_vel" -hold -e "bash -i -c 'rostopic pub /2/cmd_vel geometry_msgs/Twist \"linear:
-  x: 0.3
-  y: 0.0
-  z: 0.0
-angular:
-  x: 0.0
-  y: 0.0
-  z: -0.1\" -r 10'" &
+    # Robot 1 - movimento automatico (senza finestra)
+  rostopic pub /1/cmd_vel geometry_msgs/Twist \
+  '{
+    linear:  {x: 0.5, y: 0.0, z: 0.0},
+    angular: {x: 0.0, y: 0.0, z: 0.2}
+  }' -r 10 >/dev/null 2>&1 &
+  
+  # Robot 2 - movimento automatico (senza finestra)
+  rostopic pub /2/cmd_vel geometry_msgs/Twist \
+  '{
+    linear:  {x: 0.3, y: 0.0, z: 0.0},
+    angular: {x: 0.0, y: 0.0, z: -0.1}
+  }' -r 10 >/dev/null 2>&1 &
+
 fi
 
 echo ""

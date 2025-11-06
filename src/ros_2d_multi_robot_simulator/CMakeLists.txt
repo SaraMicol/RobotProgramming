@@ -13,8 +13,6 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   sensor_msgs
 )
-
-find_package(OpenCV REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 
@@ -46,7 +44,6 @@ add_executable(robsim_node
   src/robsim_node.cpp 
   src/libs/grid_map.cpp 
   src/libs/world_item.cpp 
-  src/libs/draw_helpers.cpp 
   src/libs/laser_scanner.cpp 
   src/libs/laser_scan.cpp
   src/libs/laser_visualization.cpp
@@ -55,7 +52,6 @@ add_executable(robsim_node
 ## Specify libraries to link
 target_link_libraries(robsim_node 
   ${catkin_LIBRARIES} 
-  ${OpenCV_LIBS} 
   ${YAML_CPP_LIBRARIES}
 )
 

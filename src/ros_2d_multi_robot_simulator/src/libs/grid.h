@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include <assert.h>
 #include <limits>
-#include "draw_helpers.h"
 
 using Vector2i = Eigen::Matrix<int, 2, 1>;
 using Vector2f = Eigen::Matrix<float, 2, 1>;
@@ -123,26 +122,6 @@ struct Grid_{
   void fill(const CellType& src) {
     for(auto& d: cells)
       d=src;
-  }
-  
-  void draw(Canvas& dest, bool equalize=false) const {
-    using namespace std;
-    CellType lower=0;
-    CellType scale=1;
-    if (equalize) {
-      lower=std::numeric_limits<CellType>::max();
-      CellType upper=std::numeric_limits<CellType>::min();
-      for (const auto& v: cells) {
-        lower=std::min(lower, v);
-        upper=std::max(upper, v);
-      }
-      scale=255.f / (upper-lower);
-    }
-
-    dest = cv::Mat(rows, cols, CV_8UC1);
-    uint8_t* dest_ptr=(uint8_t*) dest.data;
-    for (size_t i=0; i<cells.size(); ++i)
-      dest_ptr[i] = scale*(cells[i]-lower);
   }
 
   int rows;

@@ -10,9 +10,6 @@ LaserScanner::LaserScanner(LaserScan& scn,
     period(1./f)
 {}
 
-void LaserScanner::draw(Canvas& canvas, bool show_parent) const {
-  scan.draw(canvas, *grid_map, globalPose());
-}
 
 void LaserScanner::getScan() {
   Isometry2f gp=globalPose();

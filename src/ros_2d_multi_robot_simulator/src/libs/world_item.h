@@ -40,28 +40,25 @@ public:
   bool isAncestor(const WorldItem& other) const;
 
   bool checkCollision(const WorldItem& other) const;
-  
-  bool checkCollision() const;
 
   inline bool move(const Isometry2f& iso) {
     Isometry2f restored_pose_in_parent=pose_in_parent;
     pose_in_parent = pose_in_parent * iso;
-    if (checkCollision()) {
+    if (parent && checkCollision(*parent)) {
+
       pose_in_parent=restored_pose_in_parent;
       return false;
     }
     return true;
   }
             
-  virtual void draw(Canvas& canvas, bool show_parent=false) const;
-
   virtual void tick(float time_interval);
 };
 
 class World: public WorldItem {
 public:
   World(const GridMap& gmap);
-  void draw(Canvas& canvas, bool show_parent=false) const;
+  
 };
 
 

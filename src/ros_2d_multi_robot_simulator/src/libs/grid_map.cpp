@@ -26,15 +26,3 @@ float GridMap::scanRay(const Vector2f& origin,
   return max_range;
 }
 
-void GridMap::loadFromImage(const char* filename, float res) {
-    cerr << "Loading map file from: [" << filename << "]" << endl;
-  cv::Mat m = cv::imread(filename);
-  if (m.rows == 0) {
-    throw std::runtime_error("unable to load image");
-  }
-  cv::Mat loaded_image;
-  cv::cvtColor(m, loaded_image, cv::COLOR_BGR2GRAY);
-  resize(loaded_image.rows, loaded_image.cols);
-  reset(Vector2f(0,0), res);
-  memcpy(&cells[0], loaded_image.data, cells.size());
-}

@@ -14,19 +14,3 @@ LaserScan::LaserScan (float range_min,
   std::fill(ranges.begin(), ranges.end(), range_max);
 }
 
-
-void LaserScan::draw(Canvas& canevasso,
-                     const GridMapping& grid_mapping,
-                     const Isometry2f& pose) {
-
-  Vector2f center_px=grid_mapping.world2grid(pose.translation());
-  float angle_increment = (angle_max-angle_min)/ranges.size();
-    
-  for (auto i=0; i<ranges.size(); ++i) {
-    float beam_angle=angle_min+angle_increment*i;
-    Vector2f d(cos(beam_angle)*ranges[i], sin(beam_angle)*ranges[i]);
-    Vector2f ep = pose * d;
-    Vector2f ep_px = grid_mapping.world2grid(ep);
-    drawLine(canevasso, center_px, ep_px, 90); 
-  }
-}

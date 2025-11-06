@@ -19,8 +19,4 @@ struct LaserScan {
              float angle_max=M_PI/2,
              int ranges_num=180);
 
-  void draw(Canvas& canevasso,
-            const GridMapping& grid_mapping,
-            const Isometry2f& pose);
-
 };

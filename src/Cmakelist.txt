@@ -46,7 +46,6 @@ add_executable(robsim_node
   src/robsim_node.cpp 
   src/roblibs/grid_map.cpp 
   src/roblibs/world_item.cpp 
-  src/roblibs/draw_helpers.cpp 
   src/roblibs/laser_scanner.cpp 
   src/roblibs/laser_scan.cpp
 )

@@ -1232,33 +1232,6 @@ tf_generate_messages_nodejs/fast:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/tf_generate_messages_nodejs.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/tf_generate_messages_nodejs.dir/build
 .PHONY : tf_generate_messages_nodejs/fast
 
-src/libs/draw_helpers.o: src/libs/draw_helpers.cpp.o
-
-.PHONY : src/libs/draw_helpers.o
-
-# target to build an object file
-src/libs/draw_helpers.cpp.o:
-	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o
-.PHONY : src/libs/draw_helpers.cpp.o
-
-src/libs/draw_helpers.i: src/libs/draw_helpers.cpp.i
-
-.PHONY : src/libs/draw_helpers.i
-
-# target to preprocess a source file
-src/libs/draw_helpers.cpp.i:
-	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.i
-.PHONY : src/libs/draw_helpers.cpp.i
-
-src/libs/draw_helpers.s: src/libs/draw_helpers.cpp.s
-
-.PHONY : src/libs/draw_helpers.s
-
-# target to generate assembly for a file
-src/libs/draw_helpers.cpp.s:
-	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.s
-.PHONY : src/libs/draw_helpers.cpp.s
-
 src/libs/grid_map.o: src/libs/grid_map.cpp.o
 
 .PHONY : src/libs/grid_map.o
@@ -1505,9 +1478,6 @@ help:
 	@echo "... rviz_generate_messages_eus"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf_generate_messages_nodejs"
-	@echo "... src/libs/draw_helpers.o"
-	@echo "... src/libs/draw_helpers.i"
-	@echo "... src/libs/draw_helpers.s"
 	@echo "... src/libs/grid_map.o"
 	@echo "... src/libs/grid_map.i"
 	@echo "... src/libs/grid_map.s"

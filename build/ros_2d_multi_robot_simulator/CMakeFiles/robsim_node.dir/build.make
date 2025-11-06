@@ -96,22 +96,9 @@ ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.s"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.cpp -o CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.s
 
-ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/flags.make
-ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/draw_helpers.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/draw_helpers.cpp
-
-ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.i"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/draw_helpers.cpp > CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.i
-
-ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.s"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/draw_helpers.cpp -o CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.s
-
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/flags.make
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.cpp
 
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.i: cmake_force
@@ -124,7 +111,7 @@ ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.c
 
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/flags.make
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.cpp
 
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.i: cmake_force
@@ -137,7 +124,7 @@ ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.
 
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/flags.make
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp
 
 ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.i: cmake_force
@@ -153,7 +140,6 @@ robsim_node_OBJECTS = \
 "CMakeFiles/robsim_node.dir/src/robsim_node.cpp.o" \
 "CMakeFiles/robsim_node.dir/src/libs/grid_map.cpp.o" \
 "CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.o" \
-"CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o" \
 "CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o" \
 "CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o" \
 "CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o"
@@ -164,7 +150,6 @@ robsim_node_EXTERNAL_OBJECTS =
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/robsim_node.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/grid_map.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o
@@ -216,57 +201,9 @@ robsim_node_EXTERNAL_OBJECTS =
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.6.2
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/robsim_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

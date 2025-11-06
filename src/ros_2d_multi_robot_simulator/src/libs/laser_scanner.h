@@ -11,7 +11,6 @@ public:
                const Isometry2f& pos,
                float frequency=10.f);
 
-  void draw(Canvas& canvas, bool show_parent) const;
 
   void tick(float time_interval) override ;
   
