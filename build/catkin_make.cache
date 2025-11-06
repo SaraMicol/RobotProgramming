@@ -1,0 +1,2 @@
+ros_2d_multi_robot_simulator
+-DCATKIN_DEVEL_PREFIX=/home/lattinone/RobotProgramming/devel -DCMAKE_INSTALL_PREFIX=/home/lattinone/RobotProgramming/install -G Unix Makefiles
