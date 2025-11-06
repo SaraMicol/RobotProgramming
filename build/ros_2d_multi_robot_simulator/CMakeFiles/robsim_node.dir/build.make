@@ -135,6 +135,19 @@ ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.s"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.cpp -o CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.s
 
+ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/flags.make
+ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o"
+	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp
+
+ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.i"
+	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp > CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.i
+
+ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.s"
+	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp -o CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.s
+
 # Object files for target robsim_node
 robsim_node_OBJECTS = \
 "CMakeFiles/robsim_node.dir/src/robsim_node.cpp.o" \
@@ -142,7 +155,8 @@ robsim_node_OBJECTS = \
 "CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.o" \
 "CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o" \
 "CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o" \
-"CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o"
+"CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o" \
+"CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o"
 
 # External object files for target robsim_node
 robsim_node_EXTERNAL_OBJECTS =
@@ -153,6 +167,7 @@ robsim_node_EXTERNAL_OBJECTS =
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/draw_helpers.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o
+/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /opt/ros/noetic/lib/librviz.so
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libOgreOverlay.so
@@ -251,7 +266,7 @@ robsim_node_EXTERNAL_OBJECTS =
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
 /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node: ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/robsim_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

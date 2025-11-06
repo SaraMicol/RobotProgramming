@@ -1340,6 +1340,33 @@ src/libs/laser_scanner.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.s
 .PHONY : src/libs/laser_scanner.cpp.s
 
+src/libs/laser_visualization.o: src/libs/laser_visualization.cpp.o
+
+.PHONY : src/libs/laser_visualization.o
+
+# target to build an object file
+src/libs/laser_visualization.cpp.o:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o
+.PHONY : src/libs/laser_visualization.cpp.o
+
+src/libs/laser_visualization.i: src/libs/laser_visualization.cpp.i
+
+.PHONY : src/libs/laser_visualization.i
+
+# target to preprocess a source file
+src/libs/laser_visualization.cpp.i:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.i
+.PHONY : src/libs/laser_visualization.cpp.i
+
+src/libs/laser_visualization.s: src/libs/laser_visualization.cpp.s
+
+.PHONY : src/libs/laser_visualization.s
+
+# target to generate assembly for a file
+src/libs/laser_visualization.cpp.s:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.s
+.PHONY : src/libs/laser_visualization.cpp.s
+
 src/libs/world_item.o: src/libs/world_item.cpp.o
 
 .PHONY : src/libs/world_item.o
@@ -1490,6 +1517,9 @@ help:
 	@echo "... src/libs/laser_scanner.o"
 	@echo "... src/libs/laser_scanner.i"
 	@echo "... src/libs/laser_scanner.s"
+	@echo "... src/libs/laser_visualization.o"
+	@echo "... src/libs/laser_visualization.i"
+	@echo "... src/libs/laser_visualization.s"
 	@echo "... src/libs/world_item.o"
 	@echo "... src/libs/world_item.i"
 	@echo "... src/libs/world_item.s"

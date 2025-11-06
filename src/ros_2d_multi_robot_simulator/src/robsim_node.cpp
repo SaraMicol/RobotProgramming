@@ -12,29 +12,15 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <visualization_msgs/MarkerArray.h>
 
 // Include LaserScan, LaserScanner e GridMap
 #include "laser_scan.h"
 #include "laser_scanner.h"
 #include "grid_map.h"
+#include "laser_visualization.h"
+#include  "robot_config.h"
 
-// --- STRUTTURE DATI ---
-struct SensorConfig {
-    std::string type, frame_id, topic;
-    int beams;
-    float range_min, range_max;
-    float angle_min, angle_max;
-};
-
-struct RobotConfig {
-    std::string id, frame_id;
-    float x, y, alpha, radius, v_lin, v_ang;
-    std::vector<SensorConfig> sensors;
-    
-    // Velocità correnti (da cmd_vel)
-    float current_v_lin = 0.0;
-    float current_v_ang = 0.0;
-};
 
 struct MapConfig {
     int width, height;
@@ -213,13 +199,6 @@ void publishTF(tf2_ros::TransformBroadcaster &tf_broadcaster,
     }
 }
 
-// --- STRUTTURA PER SENSORI ATTIVI ---
-struct ActiveSensor {
-    SensorConfig cfg;
-    ros::Publisher pub;
-    size_t robot_index;
-    std::shared_ptr<LaserScan> laser_scan;
-};
 
 // --- AGGIORNA CINEMATICA UNICYCLE CON CONTROLLO COLLISIONE MIGLIORATO ---
 void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_ptr<GridMap>& grid_map) {
@@ -298,6 +277,7 @@ void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_pt
 int main(int argc, char** argv) {
     ros::init(argc, argv, "robsim_node");
     ros::NodeHandle nh;
+    ros::Publisher laser_viz_pub = nh.advertise<visualization_msgs::MarkerArray>("laser_visualization", 1);
 
     MapConfig map_cfg;
     std::vector<RobotConfig> robots;
@@ -405,7 +385,8 @@ int main(int argc, char** argv) {
             
             as.pub.publish(scan_msg);
         }
-            
+        publishLaserVisualization(laser_viz_pub, active_sensors, robots, now);
+
          // Aggiorna cinematica di tutti i robot
         for (size_t i = 0; i < robots.size(); ++i) { 
             auto &robot = robots[i];

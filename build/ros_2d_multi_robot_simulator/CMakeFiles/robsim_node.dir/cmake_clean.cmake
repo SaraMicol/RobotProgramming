@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/robsim_node.dir/src/libs/grid_map.cpp.o"
   "CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o"
   "CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o"
+  "CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o"
   "CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.o"
   "CMakeFiles/robsim_node.dir/src/robsim_node.cpp.o"
 )

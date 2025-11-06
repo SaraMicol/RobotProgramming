@@ -49,6 +49,7 @@ add_executable(robsim_node
   src/libs/draw_helpers.cpp 
   src/libs/laser_scanner.cpp 
   src/libs/laser_scan.cpp
+  src/libs/laser_visualization.cpp
 )
 
 ## Specify libraries to link

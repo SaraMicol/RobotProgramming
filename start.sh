@@ -11,7 +11,7 @@ if [ ! -f "$CONFIG_PATH" ]; then
 fi
 
 echo "========================================"
-echo " 🚀 Avvio simulatore multi-robot 2D"
+echo "  Avvio simulatore multi-robot 2D"
 echo "========================================"
 
 # ---- PARAMETRI AUTOMATICI ----
@@ -70,6 +70,6 @@ fi
 
 echo ""
 echo "========================================"
-echo "✅ Tutti i processi sono stati avviati!"
+echo " Tutti i processi sono stati avviati!"
 echo "   Puoi chiudere le finestre xterm per terminare singoli processi."
 echo "========================================"

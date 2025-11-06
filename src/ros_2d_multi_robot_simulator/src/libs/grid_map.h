@@ -1,6 +1,5 @@
 #pragma once
 #include "grid.h"
-#include "draw_helpers.h"
 
 using Affine2f = Eigen::Transform<float, 2, Eigen::Affine>;
 
