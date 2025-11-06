@@ -1,0 +1,65 @@
+cmake_minimum_required(VERSION 3.0.2)
+project(ros_2d_multi_robot_simulator)
+
+## Find catkin macros and libraries
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rviz
+  std_msgs
+  tf
+  tf2
+  tf2_ros
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+)
+
+find_package(OpenCV REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(Eigen3 REQUIRED)
+
+## catkin specific configuration
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES ros_2d_multi_robot_simulator
+#  CATKIN_DEPENDS roscpp rviz std_msgs tf
+#  DEPENDS system_lib
+)
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+include_directories(
+  include
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/libs
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
+  ${YAML_CPP_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIRS}
+)
+
+## Declare a C++ executable
+add_executable(robsim_node 
+  src/robsim_node.cpp 
+  src/libs/grid_map.cpp 
+  src/libs/world_item.cpp 
+  src/libs/draw_helpers.cpp 
+  src/libs/laser_scanner.cpp 
+  src/libs/laser_scan.cpp
+)
+
+## Specify libraries to link
+target_link_libraries(robsim_node 
+  ${catkin_LIBRARIES} 
+  ${OpenCV_LIBS} 
+  ${YAML_CPP_LIBRARIES}
+)
+
+## Set C++ standard
+set_target_properties(robsim_node PROPERTIES
+  CXX_STANDARD 14
+  CXX_STANDARD_REQUIRED ON
+)

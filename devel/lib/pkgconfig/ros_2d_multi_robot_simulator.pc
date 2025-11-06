@@ -1,0 +1,8 @@
+prefix=/home/lattinone/RobotProgramming/devel
+
+Name: ros_2d_multi_robot_simulator
+Description: Description of ros_2d_multi_robot_simulator
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
