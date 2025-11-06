@@ -1,0 +1,12 @@
+<launch>
+
+  <!-- Simple roslaunch file to start the robot simulator -->
+
+  <!-- Start the robsim_node -->
+  <node name="robsim_node" pkg="ros_2d_multi_robot_simulator" type="robsim_node" output="screen"/>
+  
+  <!-- Start the Rviz package -->
+  <node name="rviz" pkg="rviz" type="rviz"/>
+
+</launch>
+
