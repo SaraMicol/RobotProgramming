@@ -225,8 +225,9 @@ void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_pt
     bool collision_detected = false;
     
     // Calcola quante celle occupare in base al raggio
-    int cell_radius = (int)std::ceil(robot.radius / resolution) + 1; // +1 per sicurezza
-    
+    const float SAFETY_MARGIN = 0.5f;  // distanza di sicurezza
+    int cell_radius = (int)std::ceil((robot.radius + SAFETY_MARGIN) / resolution);
+
     int center_col = (int)((new_x - map_origin_x) / resolution);
     int center_row = (int)((new_y - map_origin_y) / resolution);
     

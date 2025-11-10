@@ -32,10 +32,6 @@ vector
 grid_map.h
 /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/grid_map.h
 
-/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.cpp
-laser_scanner.h
-/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.h
-
 /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.h
 laser_scan.h
 /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.h
