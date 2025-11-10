@@ -64,12 +64,6 @@ ros/ros.h
 laser_scan.h
 /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.h
 
-/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.cpp
-world_item.h
-/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.h
-iostream
--
-
 /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.h
 grid_map.h
 /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/grid_map.h
