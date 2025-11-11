@@ -183,6 +183,21 @@ robsim_node/fast:
 .PHONY : robsim_node/fast
 
 # Convenience name for target.
+ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/rule:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f CMakeFiles/Makefile2 ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/rule
+.PHONY : ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/rule
+
+# Convenience name for target.
+utils: ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/rule
+
+.PHONY : utils
+
+# fast build rule for target.
+utils/fast:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build
+.PHONY : utils/fast
+
+# Convenience name for target.
 ros_2d_multi_robot_simulator/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f CMakeFiles/Makefile2 ros_2d_multi_robot_simulator/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
 .PHONY : ros_2d_multi_robot_simulator/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
@@ -1394,6 +1409,36 @@ src/robsim_node.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/robsim_node.cpp.s
 .PHONY : src/robsim_node.cpp.s
 
+src/utils.o: src/utils.cpp.o
+
+.PHONY : src/utils.o
+
+# target to build an object file
+src/utils.cpp.o:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/utils.cpp.o
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/src/utils.cpp.o
+.PHONY : src/utils.cpp.o
+
+src/utils.i: src/utils.cpp.i
+
+.PHONY : src/utils.i
+
+# target to preprocess a source file
+src/utils.cpp.i:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/utils.cpp.i
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/src/utils.cpp.i
+.PHONY : src/utils.cpp.i
+
+src/utils.s: src/utils.cpp.s
+
+.PHONY : src/utils.s
+
+# target to generate assembly for a file
+src/utils.cpp.s:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/utils.cpp.s
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/src/utils.cpp.s
+.PHONY : src/utils.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1405,6 +1450,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... robsim_node"
+	@echo "... utils"
 	@echo "... std_srvs_generate_messages_nodejs"
 	@echo "... std_srvs_generate_messages_lisp"
 	@echo "... std_srvs_generate_messages_eus"
@@ -1496,6 +1542,9 @@ help:
 	@echo "... src/robsim_node.o"
 	@echo "... src/robsim_node.i"
 	@echo "... src/robsim_node.s"
+	@echo "... src/utils.o"
+	@echo "... src/utils.i"
+	@echo "... src/utils.s"
 .PHONY : help
 
 

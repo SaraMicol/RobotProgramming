@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o"
   "CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.o"
   "CMakeFiles/robsim_node.dir/src/robsim_node.cpp.o"
+  "CMakeFiles/robsim_node.dir/src/utils.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

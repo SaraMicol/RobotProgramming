@@ -39,9 +39,19 @@ include_directories(
   ${EIGEN3_INCLUDE_DIRS}
 )
 
+add_library(utils
+  src/utils.cpp
+)
+
+target_link_libraries(utils
+  ${catkin_LIBRARIES}
+  yaml-cpp
+)
+
 ## Declare a C++ executable
 add_executable(robsim_node 
   src/robsim_node.cpp 
+  src/utils.cpp 
   src/libs/grid_map.cpp 
   src/libs/world_item.cpp 
   src/libs/laser_scanner.cpp 
@@ -51,6 +61,7 @@ add_executable(robsim_node
 
 ## Specify libraries to link
 target_link_libraries(robsim_node 
+  utils
   ${catkin_LIBRARIES} 
   ${YAML_CPP_LIBRARIES}
 )

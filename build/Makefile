@@ -298,6 +298,19 @@ robsim_node/fast:
 .PHONY : robsim_node/fast
 
 #=============================================================================
+# Target rules for targets named utils
+
+# Build rule for target.
+utils: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 utils
+.PHONY : utils
+
+# fast build rule for target.
+utils/fast:
+	$(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build
+.PHONY : utils/fast
+
+#=============================================================================
 # Target rules for targets named std_srvs_generate_messages_nodejs
 
 # Build rule for target.
@@ -1230,6 +1243,7 @@ help:
 	@echo "... gtest_main"
 	@echo "... gtest"
 	@echo "... robsim_node"
+	@echo "... utils"
 	@echo "... std_srvs_generate_messages_nodejs"
 	@echo "... std_srvs_generate_messages_lisp"
 	@echo "... std_srvs_generate_messages_eus"
