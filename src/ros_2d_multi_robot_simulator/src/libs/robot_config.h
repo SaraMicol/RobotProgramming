@@ -20,6 +20,7 @@ struct RobotConfig {
     std::vector<SensorConfig> sensors;
     float current_v_lin = 0.0;
     float current_v_ang = 0.0;
+    int index;
 };
 
 struct ActiveSensor {

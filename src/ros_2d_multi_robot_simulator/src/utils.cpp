@@ -179,60 +179,15 @@ void publishTF(tf2_ros::TransformBroadcaster &tf_broadcaster,
 void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_ptr<GridMap>& grid_map) {
     float v_lin = std::max(-robot.v_lin, std::min(robot.v_lin, robot.current_v_lin));
     float v_ang = std::max(-robot.v_ang, std::min(robot.v_ang, robot.current_v_ang));
+    
+    ROS_INFO_THROTTLE(1.0, "Robot %s: v_lin=%.2f, v_ang=%.2f", robot.id.c_str(), v_lin, v_ang);
 
     float new_x = robot.x + v_lin * cos(robot.alpha) * dt;
     float new_y = robot.y + v_lin * sin(robot.alpha) * dt;
     float new_alpha = robot.alpha + v_ang * dt;
 
-    while (new_alpha > M_PI) new_alpha -= 2.0 * M_PI;
-    while (new_alpha < -M_PI) new_alpha += 2.0 * M_PI;
-
-    float map_origin_x = grid_map->origin().x();
-    float map_origin_y = grid_map->origin().y();
-    float resolution = grid_map->resolution();
-    int cols = grid_map->cols;
-
-    bool collision_detected = false;
-    const float SAFETY_MARGIN = 0.5f;
-    int cell_radius = (int)std::ceil((robot.radius + SAFETY_MARGIN) / resolution);
-
-    int center_col = (int)((new_x - map_origin_x) / resolution);
-    int center_row = (int)((new_y - map_origin_y) / resolution);
-
-    for (int dr = -cell_radius; dr <= cell_radius; ++dr) {
-        for (int dc = -cell_radius; dc <= cell_radius; ++dc) {
-            int row = center_row + dr;
-            int col = center_col + dc;
-
-            if (row < 0 || row >= grid_map->rows || col < 0 || col >= grid_map->cols) {
-                collision_detected = true;
-                ROS_ERROR_THROTTLE(1.0, "Robot %s ha tentato di uscire dai limiti della mappa.", robot.id.c_str());
-                break;
-            }
-
-            float cell_x = map_origin_x + (col + 0.5f) * resolution;
-            float cell_y = map_origin_y + (row + 0.5f) * resolution;
-            float dist = std::sqrt((cell_x - new_x)*(cell_x - new_x) + (cell_y - new_y)*(cell_y - new_y));
-
-            if (dist <= robot.radius) {
-                int index = row * cols + col;
-                if (grid_map->cells[index] == 0) {
-                    collision_detected = true;
-                    ROS_ERROR_THROTTLE(0.5, "Collisione FISICA! Robot %s bloccato in traslazione.", robot.id.c_str());
-                    break;
-                }
-            }
-        }
-        if (collision_detected) break;
-    }
-
-    if (collision_detected) {
-        robot.alpha = new_alpha;
-        robot.current_v_lin = 0.0f;
-        return;
-    }
-
     robot.x = new_x;
     robot.y = new_y;
     robot.alpha = new_alpha;
 }
+

@@ -1038,6 +1038,21 @@ map_msgs_generate_messages_eus/fast:
 .PHONY : map_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
+ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/rule:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f CMakeFiles/Makefile2 ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/rule
+.PHONY : ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/rule
+
+# Convenience name for target.
+goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/rule
+
+.PHONY : goal_follower
+
+# fast build rule for target.
+goal_follower/fast:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build
+.PHONY : goal_follower/fast
+
+# Convenience name for target.
 ros_2d_multi_robot_simulator/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f CMakeFiles/Makefile2 ros_2d_multi_robot_simulator/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
 .PHONY : ros_2d_multi_robot_simulator/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
@@ -1247,6 +1262,33 @@ tf_generate_messages_nodejs/fast:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/tf_generate_messages_nodejs.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/tf_generate_messages_nodejs.dir/build
 .PHONY : tf_generate_messages_nodejs/fast
 
+src/goal_follower.o: src/goal_follower.cpp.o
+
+.PHONY : src/goal_follower.o
+
+# target to build an object file
+src/goal_follower.cpp.o:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/goal_follower.cpp.o
+.PHONY : src/goal_follower.cpp.o
+
+src/goal_follower.i: src/goal_follower.cpp.i
+
+.PHONY : src/goal_follower.i
+
+# target to preprocess a source file
+src/goal_follower.cpp.i:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/goal_follower.cpp.i
+.PHONY : src/goal_follower.cpp.i
+
+src/goal_follower.s: src/goal_follower.cpp.s
+
+.PHONY : src/goal_follower.s
+
+# target to generate assembly for a file
+src/goal_follower.cpp.s:
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/goal_follower.cpp.s
+.PHONY : src/goal_follower.cpp.s
+
 src/libs/grid_map.o: src/libs/grid_map.cpp.o
 
 .PHONY : src/libs/grid_map.o
@@ -1254,6 +1296,7 @@ src/libs/grid_map.o: src/libs/grid_map.cpp.o
 # target to build an object file
 src/libs/grid_map.cpp.o:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/grid_map.cpp.o
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.o
 .PHONY : src/libs/grid_map.cpp.o
 
 src/libs/grid_map.i: src/libs/grid_map.cpp.i
@@ -1263,6 +1306,7 @@ src/libs/grid_map.i: src/libs/grid_map.cpp.i
 # target to preprocess a source file
 src/libs/grid_map.cpp.i:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/grid_map.cpp.i
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.i
 .PHONY : src/libs/grid_map.cpp.i
 
 src/libs/grid_map.s: src/libs/grid_map.cpp.s
@@ -1272,6 +1316,7 @@ src/libs/grid_map.s: src/libs/grid_map.cpp.s
 # target to generate assembly for a file
 src/libs/grid_map.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/grid_map.cpp.s
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.s
 .PHONY : src/libs/grid_map.cpp.s
 
 src/libs/laser_scan.o: src/libs/laser_scan.cpp.o
@@ -1281,6 +1326,7 @@ src/libs/laser_scan.o: src/libs/laser_scan.cpp.o
 # target to build an object file
 src/libs/laser_scan.cpp.o:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.o
 .PHONY : src/libs/laser_scan.cpp.o
 
 src/libs/laser_scan.i: src/libs/laser_scan.cpp.i
@@ -1290,6 +1336,7 @@ src/libs/laser_scan.i: src/libs/laser_scan.cpp.i
 # target to preprocess a source file
 src/libs/laser_scan.cpp.i:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.i
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.i
 .PHONY : src/libs/laser_scan.cpp.i
 
 src/libs/laser_scan.s: src/libs/laser_scan.cpp.s
@@ -1299,6 +1346,7 @@ src/libs/laser_scan.s: src/libs/laser_scan.cpp.s
 # target to generate assembly for a file
 src/libs/laser_scan.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.s
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.s
 .PHONY : src/libs/laser_scan.cpp.s
 
 src/libs/laser_scanner.o: src/libs/laser_scanner.cpp.o
@@ -1308,6 +1356,7 @@ src/libs/laser_scanner.o: src/libs/laser_scanner.cpp.o
 # target to build an object file
 src/libs/laser_scanner.cpp.o:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.o
 .PHONY : src/libs/laser_scanner.cpp.o
 
 src/libs/laser_scanner.i: src/libs/laser_scanner.cpp.i
@@ -1317,6 +1366,7 @@ src/libs/laser_scanner.i: src/libs/laser_scanner.cpp.i
 # target to preprocess a source file
 src/libs/laser_scanner.cpp.i:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.i
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.i
 .PHONY : src/libs/laser_scanner.cpp.i
 
 src/libs/laser_scanner.s: src/libs/laser_scanner.cpp.s
@@ -1326,6 +1376,7 @@ src/libs/laser_scanner.s: src/libs/laser_scanner.cpp.s
 # target to generate assembly for a file
 src/libs/laser_scanner.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.s
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.s
 .PHONY : src/libs/laser_scanner.cpp.s
 
 src/libs/laser_visualization.o: src/libs/laser_visualization.cpp.o
@@ -1335,6 +1386,7 @@ src/libs/laser_visualization.o: src/libs/laser_visualization.cpp.o
 # target to build an object file
 src/libs/laser_visualization.cpp.o:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.o
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.o
 .PHONY : src/libs/laser_visualization.cpp.o
 
 src/libs/laser_visualization.i: src/libs/laser_visualization.cpp.i
@@ -1344,6 +1396,7 @@ src/libs/laser_visualization.i: src/libs/laser_visualization.cpp.i
 # target to preprocess a source file
 src/libs/laser_visualization.cpp.i:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.i
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.i
 .PHONY : src/libs/laser_visualization.cpp.i
 
 src/libs/laser_visualization.s: src/libs/laser_visualization.cpp.s
@@ -1353,6 +1406,7 @@ src/libs/laser_visualization.s: src/libs/laser_visualization.cpp.s
 # target to generate assembly for a file
 src/libs/laser_visualization.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/laser_visualization.cpp.s
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.s
 .PHONY : src/libs/laser_visualization.cpp.s
 
 src/libs/world_item.o: src/libs/world_item.cpp.o
@@ -1362,6 +1416,7 @@ src/libs/world_item.o: src/libs/world_item.cpp.o
 # target to build an object file
 src/libs/world_item.cpp.o:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.o
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.o
 .PHONY : src/libs/world_item.cpp.o
 
 src/libs/world_item.i: src/libs/world_item.cpp.i
@@ -1371,6 +1426,7 @@ src/libs/world_item.i: src/libs/world_item.cpp.i
 # target to preprocess a source file
 src/libs/world_item.cpp.i:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.i
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.i
 .PHONY : src/libs/world_item.cpp.i
 
 src/libs/world_item.s: src/libs/world_item.cpp.s
@@ -1380,6 +1436,7 @@ src/libs/world_item.s: src/libs/world_item.cpp.s
 # target to generate assembly for a file
 src/libs/world_item.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.s
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.s
 .PHONY : src/libs/world_item.cpp.s
 
 src/robsim_node.o: src/robsim_node.cpp.o
@@ -1417,6 +1474,7 @@ src/utils.o: src/utils.cpp.o
 src/utils.cpp.o:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/utils.cpp.o
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/src/utils.cpp.o
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.o
 .PHONY : src/utils.cpp.o
 
 src/utils.i: src/utils.cpp.i
@@ -1427,6 +1485,7 @@ src/utils.i: src/utils.cpp.i
 src/utils.cpp.i:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/utils.cpp.i
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/src/utils.cpp.i
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.i
 .PHONY : src/utils.cpp.i
 
 src/utils.s: src/utils.cpp.s
@@ -1437,6 +1496,7 @@ src/utils.s: src/utils.cpp.s
 src/utils.cpp.s:
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/robsim_node.dir/src/utils.cpp.s
 	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/utils.dir/src/utils.cpp.s
+	cd /home/lattinone/RobotProgramming/build && $(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.s
 .PHONY : src/utils.cpp.s
 
 # Help Target
@@ -1510,6 +1570,7 @@ help:
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... visualization_msgs_generate_messages_cpp"
 	@echo "... map_msgs_generate_messages_eus"
+	@echo "... goal_follower"
 	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... tf_generate_messages_py"
@@ -1524,6 +1585,9 @@ help:
 	@echo "... rviz_generate_messages_eus"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf_generate_messages_nodejs"
+	@echo "... src/goal_follower.o"
+	@echo "... src/goal_follower.i"
+	@echo "... src/goal_follower.s"
 	@echo "... src/libs/grid_map.o"
 	@echo "... src/libs/grid_map.i"
 	@echo "... src/libs/grid_map.s"

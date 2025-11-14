@@ -23,3 +23,5 @@ nav_msgs::OccupancyGrid createMap(const MapConfig &map_cfg);
 std::shared_ptr<GridMap> createGridMap(const nav_msgs::OccupancyGrid& map_msg);
 void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_ptr<GridMap>& grid_map);
 void publishTF(tf2_ros::TransformBroadcaster &tf_broadcaster, const std::vector<RobotConfig> &robots);
+double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensor& sensor);
+

@@ -16,19 +16,8 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(yaml-cpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 
-## catkin specific configuration
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES ros_2d_multi_robot_simulator
-#  CATKIN_DEPENDS roscpp rviz std_msgs tf
-#  DEPENDS system_lib
-)
+catkin_package()
 
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
 include_directories(
   include
   ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -42,13 +31,14 @@ include_directories(
 add_library(utils
   src/utils.cpp
 )
-
 target_link_libraries(utils
   ${catkin_LIBRARIES}
   yaml-cpp
 )
 
-## Declare a C++ executable
+##########################
+## robsim_node executable
+##########################
 add_executable(robsim_node 
   src/robsim_node.cpp 
   src/utils.cpp 
@@ -59,15 +49,34 @@ add_executable(robsim_node
   src/libs/laser_visualization.cpp
 )
 
-## Specify libraries to link
 target_link_libraries(robsim_node 
   utils
   ${catkin_LIBRARIES} 
   ${YAML_CPP_LIBRARIES}
 )
 
-## Set C++ standard
 set_target_properties(robsim_node PROPERTIES
+  CXX_STANDARD 14
+  CXX_STANDARD_REQUIRED ON
+)
+
+add_executable(goal_follower 
+  src/goal_follower.cpp 
+  src/utils.cpp 
+  src/libs/grid_map.cpp 
+  src/libs/world_item.cpp 
+  src/libs/laser_scanner.cpp 
+  src/libs/laser_scan.cpp
+  src/libs/laser_visualization.cpp
+)
+
+target_link_libraries(goal_follower
+  utils
+  ${catkin_LIBRARIES} 
+  ${YAML_CPP_LIBRARIES}
+)
+
+set_target_properties(goal_follower PROPERTIES
   CXX_STANDARD 14
   CXX_STANDARD_REQUIRED ON
 )

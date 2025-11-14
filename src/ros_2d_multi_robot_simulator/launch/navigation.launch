@@ -1,0 +1,64 @@
+<launch>
+  <node pkg="ros_2d_multi_robot_simulator" type="robsim_node" name="robsim_node" output="screen" 
+        args="/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/configs/env1.yaml" />
+  
+  <group ns="robot1">
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+      <param name="odom_frame_id" value="odom"/>
+      <param name="base_frame_id" value="robot1_frame"/>
+      <param name="global_frame_id" value="map"/>
+      <remap from="scan" to="/robot1/lidar"/>
+      <remap from="initialpose" to="/robot1/initialpose"/>
+      <remap from="amcl_pose" to="/robot1/amcl_pose"/>
+    </node>
+
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/global_costmap_params.yaml" command="load"/>
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/local_costmap_params.yaml" command="load"/>
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/base_local_planner_params.yaml" command="load"/>
+
+      <param name="global_costmap/robot_base_frame" value="robot1_frame"/>
+      <param name="global_costmap/global_frame" value="map"/>
+      <param name="local_costmap/robot_base_frame" value="robot1_frame"/>
+      <param name="local_costmap/global_frame" value="odom"/>
+
+      <remap from="cmd_vel" to="/robot1/cmd_vel"/>
+      <remap from="odom" to="/robot1/odom"/>
+      <remap from="scan" to="/robot1/lidar"/>
+      <remap from="move_base_simple/goal" to="/robot1/move_base_simple/goal"/>
+    </node>
+  </group>
+
+  <group ns="robot2">
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+      <param name="odom_frame_id" value="odom"/>
+      <param name="base_frame_id" value="robot2_frame"/>
+      <param name="global_frame_id" value="map"/>
+      <remap from="scan" to="/robot2/lidar"/>
+      <remap from="initialpose" to="/robot2/initialpose"/>
+      <remap from="amcl_pose" to="/robot2/amcl_pose"/>
+    </node>
+
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/global_costmap_params.yaml" command="load"/>
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/local_costmap_params.yaml" command="load"/>
+      <rosparam file="$(find ros_2d_multi_robot_simulator)/config/base_local_planner_params.yaml" command="load"/>
+
+      <param name="global_costmap/robot_base_frame" value="robot2_frame"/>
+      <param name="global_costmap/global_frame" value="map"/>
+      <param name="local_costmap/robot_base_frame" value="robot2_frame"/>
+      <param name="local_costmap/global_frame" value="odom"/>
+
+      <remap from="cmd_vel" to="/robot2/cmd_vel"/>
+      <remap from="odom" to="/robot2/odom"/>
+      <remap from="scan" to="/robot2/lidar"/>
+      <remap from="move_base_simple/goal" to="/robot2/move_base_simple/goal"/>
+    </node>
+  </group>
+</launch>

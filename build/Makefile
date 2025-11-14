@@ -1039,6 +1039,19 @@ map_msgs_generate_messages_eus/fast:
 .PHONY : map_msgs_generate_messages_eus/fast
 
 #=============================================================================
+# Target rules for targets named goal_follower
+
+# Build rule for target.
+goal_follower: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 goal_follower
+.PHONY : goal_follower
+
+# fast build rule for target.
+goal_follower/fast:
+	$(MAKE) -f ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build
+.PHONY : goal_follower/fast
+
+#=============================================================================
 # Target rules for targets named actionlib_generate_messages_nodejs
 
 # Build rule for target.
@@ -1300,6 +1313,7 @@ help:
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... visualization_msgs_generate_messages_cpp"
 	@echo "... map_msgs_generate_messages_eus"
+	@echo "... goal_follower"
 	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... tf_generate_messages_py"

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Start the 2D multi-robot simulator and optional tools automatically
 
-CONFIG_PATH="/home/lattinone/ros-multi-robot-sim/src/ros_2d_multi_robot_simulator/configs/config1.rviz"
+CONFIG_PATH="src/ros_2d_multi_robot_simulator/configs/config1.rviz"
 
 # Controlla che il file esista davvero
 if [ ! -f "$CONFIG_PATH" ]; then
@@ -45,23 +45,15 @@ fi
 
 # ---- MOVIMENTO ROBOT ----
 if [ "$START_MOVEMENT" = true ]; then
-    echo "[5/5] Avvio comandi di movimento robot..."
-    
-    # Robot 1 - movimento automatico (senza finestra)
-  rostopic pub /1/cmd_vel geometry_msgs/Twist \
-  '{
-    linear:  {x: 0.5, y: 0.0, z: 0.0},
-    angular: {x: 0.0, y: 0.0, z: 0.2}
-  }' -r 10 >/dev/null 2>&1 &
-  
-  # Robot 2 - movimento automatico (senza finestra)
-  rostopic pub /2/cmd_vel geometry_msgs/Twist \
-  '{
-    linear:  {x: 0.3, y: 0.0, z: 0.0},
-    angular: {x: 0.0, y: 0.0, z: -0.1}
-  }' -r 10 >/dev/null 2>&1 &
+    echo "[5/5] Avvio follower per i goal di ciascun robot..."
 
+    # Robot 1
+    xterm -hold -title "Robot1 Follower" -e "bash -i -c './devel/lib/ros_2d_multi_robot_simulator/goal_follower 1'" &
+
+    # Robot 2
+    xterm -hold -title "Robot2 Follower" -e "bash -i -c './devel/lib/ros_2d_multi_robot_simulator/goal_follower 2'" &
 fi
+
 
 echo ""
 echo "========================================"
