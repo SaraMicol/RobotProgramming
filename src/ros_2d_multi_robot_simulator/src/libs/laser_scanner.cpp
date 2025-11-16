@@ -10,7 +10,6 @@ LaserScanner::LaserScanner(LaserScan& scn,
     period(1./f)
 {}
 
-
 void LaserScanner::getScan() {
   Isometry2f gp=globalPose();
   Isometry2f rotation=gp;

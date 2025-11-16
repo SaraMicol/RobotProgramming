@@ -12,4 +12,4 @@ export LD_LIBRARY_PATH="/home/lattinone/RobotProgramming/devel/lib:$LD_LIBRARY_P
 export PKG_CONFIG_PATH="/home/lattinone/RobotProgramming/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/lattinone/RobotProgramming/build'
 export ROSLISP_PACKAGE_DIRECTORIES='/home/lattinone/RobotProgramming/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/lattinone/ros-multi-robot-sim/src:/home/lattinone/RobotProgramming/src:$ROS_PACKAGE_PATH"
+export ROS_PACKAGE_PATH="/home/lattinone/RobotProgramming/src:$ROS_PACKAGE_PATH"

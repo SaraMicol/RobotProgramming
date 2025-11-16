@@ -11,7 +11,6 @@ public:
                const Isometry2f& pos,
                float frequency=10.f);
 
-
   void tick(float time_interval) override ;
   
   inline bool newScan() const {return new_scan;}

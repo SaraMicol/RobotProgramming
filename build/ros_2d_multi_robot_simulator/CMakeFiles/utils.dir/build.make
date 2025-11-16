@@ -105,6 +105,8 @@ utils_EXTERNAL_OBJECTS =
 /home/lattinone/RobotProgramming/devel/lib/libutils.so: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
 /home/lattinone/RobotProgramming/devel/lib/libutils.so: /opt/ros/noetic/lib/librosconsole_bridge.so
 /home/lattinone/RobotProgramming/devel/lib/libutils.so: /opt/ros/noetic/lib/libtf.so
+/home/lattinone/RobotProgramming/devel/lib/libutils.so: /usr/lib/liborocos-kdl.so
+/home/lattinone/RobotProgramming/devel/lib/libutils.so: /usr/lib/liborocos-kdl.so
 /home/lattinone/RobotProgramming/devel/lib/libutils.so: /opt/ros/noetic/lib/libtf2_ros.so
 /home/lattinone/RobotProgramming/devel/lib/libutils.so: /opt/ros/noetic/lib/libactionlib.so
 /home/lattinone/RobotProgramming/devel/lib/libutils.so: /opt/ros/noetic/lib/libmessage_filters.so

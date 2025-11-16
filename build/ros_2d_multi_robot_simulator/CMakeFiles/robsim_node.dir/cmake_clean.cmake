@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node"
+  "/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/robsim_node.pdb"
   "CMakeFiles/robsim_node.dir/src/libs/grid_map.cpp.o"
   "CMakeFiles/robsim_node.dir/src/libs/laser_scan.cpp.o"
   "CMakeFiles/robsim_node.dir/src/libs/laser_scanner.cpp.o"
@@ -6,8 +8,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/robsim_node.dir/src/libs/world_item.cpp.o"
   "CMakeFiles/robsim_node.dir/src/robsim_node.cpp.o"
   "CMakeFiles/robsim_node.dir/src/utils.cpp.o"
-  "robsim_node"
-  "robsim_node.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

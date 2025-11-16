@@ -1,19 +1,21 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(ros_2d_multi_robot_simulator)
 
+## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rviz
+  std_msgs
   tf
   tf2
   tf2_ros
   geometry_msgs
+  tf2_geometry_msgs
   nav_msgs
   sensor_msgs
-  std_msgs
 )
-
-find_package(Eigen3 REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 catkin_package()
 
@@ -22,5 +24,41 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${CMAKE_CURRENT_SOURCE_DIR}/src/libs
   ${catkin_INCLUDE_DIRS}
+  ${YAML_CPP_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
+)
+
+# =======================
+# Library for utils
+# =======================
+add_library(utils
+  src/utils.cpp
+)
+target_link_libraries(utils
+  ${catkin_LIBRARIES}
+  yaml-cpp
+)
+
+# =======================
+# robsim_node executable
+# =======================
+add_executable(robsim_node
+  src/robsim_node.cpp
+  src/utils.cpp
+  src/libs/grid_map.cpp
+  src/libs/world_item.cpp
+  src/libs/laser_scanner.cpp
+  src/libs/laser_scan.cpp
+  src/libs/laser_visualization.cpp
+)
+
+target_link_libraries(robsim_node
+  utils
+  ${catkin_LIBRARIES}
+  ${YAML_CPP_LIBRARIES}
+)
+
+set_target_properties(robsim_node PROPERTIES
+  CXX_STANDARD 14
+  CXX_STANDARD_REQUIRED ON
 )

@@ -1,0 +1,21 @@
+digraph G {
+"map" -> "odom"[label="Broadcaster: /robsim_node\nAverage rate: 20.384 Hz\nMost recent transform: 1763305177.771 ( 0.004 sec old)\nBuffer length: 4.906 sec\n"];
+"odom" -> "robot1_frame"[label="Broadcaster: /robsim_node\nAverage rate: 10.202 Hz\nMost recent transform: 1763305177.771 ( 0.004 sec old)\nBuffer length: 4.901 sec\n"];
+"robot1_frame" -> "lidar1_frame"[label="Broadcaster: /robsim_node\nAverage rate: 10.202 Hz\nMost recent transform: 1763305177.771 ( 0.004 sec old)\nBuffer length: 4.901 sec\n"];
+"odom" -> "robot2_frame"[label="Broadcaster: /robsim_node\nAverage rate: 10.202 Hz\nMost recent transform: 1763305177.771 ( 0.004 sec old)\nBuffer length: 4.901 sec\n"];
+"robot2_frame" -> "lidar2_frame"[label="Broadcaster: /robsim_node\nAverage rate: 10.202 Hz\nMost recent transform: 1763305177.771 ( 0.004 sec old)\nBuffer length: 4.901 sec\n"];
+"1/base_link" -> "1/lidar1_frame"[label="Broadcaster: /robsim_node\nAverage rate: 10.201 Hz\nMost recent transform: 1763305177.767 ( 0.008 sec old)\nBuffer length: 4.901 sec\n"];
+"2/base_link" -> "2/lidar2_frame"[label="Broadcaster: /robsim_node\nAverage rate: 10.201 Hz\nMost recent transform: 1763305177.767 ( 0.008 sec old)\nBuffer length: 4.901 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1763305177.775"[ shape=plaintext ] ;
+ }->"map";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1763305177.775"[ shape=plaintext ] ;
+ }->"1/base_link";
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1763305177.775"[ shape=plaintext ] ;
+ }->"2/base_link";
+}
