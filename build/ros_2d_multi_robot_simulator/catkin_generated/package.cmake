@@ -1,6 +1,6 @@
 set(_CATKIN_CURRENT_PACKAGE "ros_2d_multi_robot_simulator")
 set(ros_2d_multi_robot_simulator_VERSION "1.0.0")
-set(ros_2d_multi_robot_simulator_MAINTAINER "Emanuele Frasca <frasca.1836098@studenti.uniroma1.it>")
+set(ros_2d_multi_robot_simulator_MAINTAINER "Sara Micol Ferraina <ferraina.1857726@studenti.uniroma1.it>")
 set(ros_2d_multi_robot_simulator_PACKAGE_FORMAT "2")
 set(ros_2d_multi_robot_simulator_BUILD_DEPENDS "roscpp" "rviz" "std_msgs" "tf")
 set(ros_2d_multi_robot_simulator_BUILD_EXPORT_DEPENDS "roscpp" "rviz" "std_msgs" "tf")

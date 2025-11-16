@@ -28,6 +28,7 @@ struct ActiveSensor {
     ros::Publisher pub;
     size_t robot_index;
     std::shared_ptr<LaserScan> laser_scan;
+    std::string frame_id;
 };
 
 #endif

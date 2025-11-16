@@ -177,11 +177,13 @@ void publishTF(tf2_ros::TransformBroadcaster &tf_broadcaster,
 
 // --- AGGIORNA CINEMATICA UNICYCLE ---
 void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_ptr<GridMap>& grid_map) {
+    // ---limito velocit' masssima  ---
     float v_lin = std::max(-robot.v_lin, std::min(robot.v_lin, robot.current_v_lin));
     float v_ang = std::max(-robot.v_ang, std::min(robot.v_ang, robot.current_v_ang));
     
     ROS_INFO_THROTTLE(1.0, "Robot %s: v_lin=%.2f, v_ang=%.2f", robot.id.c_str(), v_lin, v_ang);
 
+// --- eq cinematica unicycle---
     float new_x = robot.x + v_lin * cos(robot.alpha) * dt;
     float new_y = robot.y + v_lin * sin(robot.alpha) * dt;
     float new_alpha = robot.alpha + v_ang * dt;

@@ -44,7 +44,6 @@ target_link_libraries(utils
 # =======================
 add_executable(robsim_node
   src/robsim_node.cpp
-  src/utils.cpp
   src/libs/grid_map.cpp
   src/libs/world_item.cpp
   src/libs/laser_scanner.cpp
