@@ -70,160 +70,21 @@ ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/goal_follower.cpp.
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/goal_follower.dir/src/goal_follower.cpp.s"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/goal_follower.cpp -o CMakeFiles/goal_follower.dir/src/goal_follower.cpp.s
 
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/flags.make
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.o"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/goal_follower.dir/src/utils.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/utils.cpp
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/goal_follower.dir/src/utils.cpp.i"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/utils.cpp > CMakeFiles/goal_follower.dir/src/utils.cpp.i
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/goal_follower.dir/src/utils.cpp.s"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/utils.cpp -o CMakeFiles/goal_follower.dir/src/utils.cpp.s
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/flags.make
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/grid_map.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.o"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/grid_map.cpp
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.i"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/grid_map.cpp > CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.i
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.s"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/grid_map.cpp -o CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.s
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/flags.make
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.o"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.cpp
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.i"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.cpp > CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.i
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.s"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/world_item.cpp -o CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.s
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/flags.make
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.o"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.cpp
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.i"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.cpp > CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.i
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.s"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scanner.cpp -o CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.s
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/flags.make
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.o"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.cpp
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.i"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.cpp > CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.i
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.s"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_scan.cpp -o CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.s
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.o: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/flags.make
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.o: /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.o"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.o -c /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.i"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp > CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.i
-
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.s"
-	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs/laser_visualization.cpp -o CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.s
-
 # Object files for target goal_follower
 goal_follower_OBJECTS = \
-"CMakeFiles/goal_follower.dir/src/goal_follower.cpp.o" \
-"CMakeFiles/goal_follower.dir/src/utils.cpp.o" \
-"CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.o" \
-"CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.o" \
-"CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.o" \
-"CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.o" \
-"CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.o"
+"CMakeFiles/goal_follower.dir/src/goal_follower.cpp.o"
 
 # External object files for target goal_follower
 goal_follower_EXTERNAL_OBJECTS =
 
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/goal_follower.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/utils.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/grid_map.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/world_item.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scanner.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_scan.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/libs/laser_visualization.cpp.o
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /home/lattinone/RobotProgramming/devel/lib/libutils.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/librviz.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libOgreOverlay.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libOgreMain.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libOpenGL.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libGLX.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libGLU.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libimage_transport.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libinteractive_markers.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/liblaser_geometry.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libresource_retriever.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/liburdf.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/liburdfdom_model.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/liburdfdom_world.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libtinyxml.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libclass_loader.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libPocoFoundation.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libdl.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libroslib.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/librospack.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libpython3.8.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/librosconsole_bridge.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libtf.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libtf2_ros.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libactionlib.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libmessage_filters.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libroscpp.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/librosconsole.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/librosconsole_log4cxx.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/librosconsole_backend_interface.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libxmlrpcpp.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libtf2.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libroscpp_serialization.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/librostime.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /opt/ros/noetic/lib/libcpp_common.so
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: /usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.6.2
-/home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower"
+ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/src/goal_follower.cpp.o
+ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build.make
+ros_2d_multi_robot_simulator/goal_follower: ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lattinone/RobotProgramming/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable goal_follower"
 	cd /home/lattinone/RobotProgramming/build/ros_2d_multi_robot_simulator && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/goal_follower.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build: /home/lattinone/RobotProgramming/devel/lib/ros_2d_multi_robot_simulator/goal_follower
+ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build: ros_2d_multi_robot_simulator/goal_follower
 
 .PHONY : ros_2d_multi_robot_simulator/CMakeFiles/goal_follower.dir/build
 

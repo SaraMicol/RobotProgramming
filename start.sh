@@ -43,17 +43,6 @@ if [ "$START_RQT_GRAPH" = true ]; then
     xterm -hold -title "rqt_graph" -e "bash -i -c 'rqt_graph'" &
 fi
 
-# ---- MOVIMENTO ROBOT ----
-if [ "$START_MOVEMENT" = true ]; then
-    echo "[5/5] Avvio follower per i goal di ciascun robot..."
-
-    # Robot 1
-    xterm -hold -title "Robot1 Follower" -e "bash -i -c './devel/lib/ros_2d_multi_robot_simulator/goal_follower 1'" &
-
-    # Robot 2
-    xterm -hold -title "Robot2 Follower" -e "bash -i -c './devel/lib/ros_2d_multi_robot_simulator/goal_follower 2'" &
-fi
-
 
 echo ""
 echo "========================================"

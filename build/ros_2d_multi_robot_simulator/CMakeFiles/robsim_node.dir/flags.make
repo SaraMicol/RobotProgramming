@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =   -std=gnu++14
 
-CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"ros_2d_multi_robot_simulator\"
+CXX_DEFINES = -DROS_BUILD_SHARED_LIBS=1
 
-CXX_INCLUDES = -I/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/include -I/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src -I/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/src/libs -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/OGRE/Overlay -I/usr/include/OGRE 
+CXX_INCLUDES = 
 
