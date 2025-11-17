@@ -30,10 +30,21 @@ struct RobotGoal {
 };
 
 std::vector<RobotGoal> robot_goals;
-std::vector<ActiveSensor> active_sensors;
+
+// Struttura per sensori attivi con LaserScanner
+struct ActiveSensorWithScanner {
+    SensorConfig cfg;
+    int robot_index;
+    ros::Publisher pub;
+    std::string frame_id;
+    std::shared_ptr<LaserScan> laser_scan;
+    std::shared_ptr<LaserScanner> laser_scanner;
+};
+
+std::vector<ActiveSensorWithScanner> active_sensors;
 
 // Dichiarazione forward della funzione
-double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensor& sensor);
+double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensorWithScanner& sensor);
 
 // Callback per cmd_vel (override manuale)
 void updateCmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg, RobotConfig* robot)
@@ -98,7 +109,7 @@ void updateRobotControl(RobotConfig* robot, RobotGoal* robot_goal)
 }
 
 // Evitamento ostacoli
-double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensor& sensor)
+double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensorWithScanner& sensor)
 {
     double avoid_turn = 0.0;
     const double OBSTACLE_THRESHOLD = 0.6;
@@ -119,6 +130,24 @@ double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensor& se
     }
     return avoid_turn;
 }
+
+// Classe wrapper per WorldItem (necessaria per LaserScanner)
+class RobotWorldItem : public WorldItem {
+public:
+    RobotConfig* robot;
+    
+    RobotWorldItem(RobotConfig* rob, std::shared_ptr<GridMap> gmap) 
+        : WorldItem(gmap.get(), nullptr, Isometry2f::Identity()), robot(rob) {
+    }
+    
+    // Rimuovi override se il metodo non è virtuale nella classe base
+    Isometry2f globalPose() const {
+        Isometry2f pose = Isometry2f::Identity();
+        pose.translation() = Vector2f(robot->x, robot->y);
+        pose.linear() = Eigen::Rotation2Df(robot->alpha).toRotationMatrix();
+        return pose;
+    }
+};
 
 int main(int argc, char** argv) {
     
@@ -167,6 +196,13 @@ int main(int argc, char** argv) {
     // --- Inizializza stato goal robot ---
     robot_goals.resize(robots.size());
 
+    // --- Creazione WorldItem per ogni robot ---
+    std::vector<std::shared_ptr<RobotWorldItem>> robot_world_items;
+    for (size_t i = 0; i < robots.size(); ++i) {
+        auto item = std::make_shared<RobotWorldItem>(&robots[i], grid_map);
+        robot_world_items.push_back(item);
+    }
+
     // --- Creazione publisher/subscriber per robot ---
     std::vector<ros::Publisher> pose_pubs, odom_pubs;
     std::vector<ros::Subscriber> cmd_vel_subs;
@@ -193,16 +229,26 @@ int main(int argc, char** argv) {
         }
     );
 
-    // --- Inizializzazione laser ---
+    // --- Inizializzazione laser con LaserScanner ---
     for (size_t ri = 0; ri < robots.size(); ++ri) {
         for (const auto &s : robots[ri].sensors) {
             if (s.type == "lidar" || s.type == "laser") {
-                ActiveSensor as;
+                ActiveSensorWithScanner as;
                 as.cfg = s;
                 as.robot_index = ri;
                 as.pub = nh.advertise<sensor_msgs::LaserScan>(s.topic, 50);
                 as.frame_id = s.frame_id;
                 as.laser_scan = std::make_shared<LaserScan>(s.range_min, s.range_max, s.angle_min, s.angle_max, s.beams);
+                
+                // Crea LaserScanner con frequenza di 10 Hz
+                Isometry2f sensor_pose = Isometry2f::Identity(); // Il sensore è nel frame del robot
+                as.laser_scanner = std::make_shared<LaserScanner>(
+                    *as.laser_scan,
+                    *robot_world_items[ri],
+                    sensor_pose,
+                    10.0f // frequenza 10 Hz
+                );
+                
                 active_sensors.push_back(as);
                 ROS_INFO("Robot %s: Laser pubblicato su %s", robots[ri].id.c_str(), s.topic.c_str());
             }
@@ -222,45 +268,27 @@ int main(int argc, char** argv) {
         // --- Pubblica TF dei robot ---
         publishTF(tf_broadcaster, robots);
 
-        // --- Simula LaserScan ---
+        // --- Simula LaserScan usando LaserScanner ---
         for (auto &as : active_sensors) {
-            const auto &rob = robots[as.robot_index];
-
-            Isometry2f robot_pose = Isometry2f::Identity();
-            robot_pose.translation() = Vector2f(rob.x, rob.y);
-            robot_pose.linear() = Eigen::Rotation2Df(rob.alpha).toRotationMatrix();
-
-            Vector2f sensor_offset(rob.radius, 0);
-            Vector2f sensor_global_pos = robot_pose * sensor_offset;
-            Isometry2f sensor_pose = robot_pose;
-            sensor_pose.translation() = sensor_global_pos;
-
-            // QUESTA È LA PARTE CHE DEVI FAR CONTROLLARE 
-            float angle_increment = (as.laser_scan->angle_max - as.laser_scan->angle_min) / as.laser_scan->ranges.size();
+            // Chiama tick per aggiornare lo scan
+            as.laser_scanner->tick(dt);
             
-            for (size_t i = 0; i < as.laser_scan->ranges.size(); ++i) {
-                float beam_angle = as.laser_scan->angle_min + angle_increment * i;
-                Vector2f d(cos(beam_angle), sin(beam_angle));
-                d = sensor_pose.linear() * d;
+            // Usa il metodo getter newScan() invece di accedere direttamente al campo protetto
+            if (as.laser_scanner->newScan()) {
+                float angle_increment = (as.laser_scan->angle_max - as.laser_scan->angle_min) / as.laser_scan->ranges.size();
+                
+                sensor_msgs::LaserScan scan_msg;
+                scan_msg.header.stamp = now;
+                scan_msg.header.frame_id = as.frame_id;
+                scan_msg.angle_min = as.laser_scan->angle_min;
+                scan_msg.angle_max = as.laser_scan->angle_max;
+                scan_msg.angle_increment = angle_increment;
+                scan_msg.range_min = as.laser_scan->range_min;
+                scan_msg.range_max = as.laser_scan->range_max;
+                scan_msg.ranges = as.laser_scan->ranges;
 
-                as.laser_scan->ranges[i] = grid_map->scanRay(sensor_pose.translation(), d, as.laser_scan->range_max);
+                as.pub.publish(scan_msg);
             }
-
-            ROS_DEBUG("Laser %s del robot %lu aggiornato: primo range %.2f, ultimo range %.2f",
-                      as.cfg.topic.c_str(), as.robot_index,
-                      as.laser_scan->ranges.front(), as.laser_scan->ranges.back());
-
-            // Pubblica LaserScan
-            sensor_msgs::LaserScan scan_msg;
-            scan_msg.header.stamp = now;
-            scan_msg.header.frame_id = as.frame_id;
-            scan_msg.angle_min = as.laser_scan->angle_min;
-            scan_msg.angle_max = as.laser_scan->angle_max;
-            scan_msg.angle_increment = angle_increment;
-            scan_msg.range_min = as.laser_scan->range_min;
-            scan_msg.range_max = as.laser_scan->range_max;
-            scan_msg.ranges = as.laser_scan->ranges;
-            as.pub.publish(scan_msg);
         }
 
         // --- Aggiorna robot verso goal ---

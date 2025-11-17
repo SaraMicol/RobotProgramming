@@ -24,7 +24,6 @@ void LaserScanner::getScan() {
     scan.ranges[i] = grid_map->scanRay(gp.translation(), d, scan.range_max);
   }
     
-    
 }
 
 void LaserScanner::tick(float dt){
