@@ -16,6 +16,8 @@ find_package(catkin REQUIRED COMPONENTS
 )
 find_package(yaml-cpp REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(OpenCV REQUIRED)
+
 
 catkin_package()
 
@@ -26,6 +28,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${YAML_CPP_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 # =======================
@@ -37,6 +40,7 @@ add_library(utils
 target_link_libraries(utils
   ${catkin_LIBRARIES}
   yaml-cpp
+  ${OpenCV_LIBS}
 )
 
 # =======================
@@ -55,6 +59,7 @@ target_link_libraries(robsim_node
   utils
   ${catkin_LIBRARIES}
   ${YAML_CPP_LIBRARIES}
+  ${OpenCV_LIBS}   # Link a OpenCV
 )
 
 set_target_properties(robsim_node PROPERTIES

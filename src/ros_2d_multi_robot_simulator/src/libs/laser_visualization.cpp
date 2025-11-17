@@ -1,6 +1,6 @@
 #include "laser_visualization.h"
 #include "robot_config.h"
-#include <Eigen/Core>
+#include "laser_scan.h"  
 #include <Eigen/Geometry>
 
 using Vector2f = Eigen::Vector2f;

@@ -106,7 +106,7 @@ nav_msgs::OccupancyGrid createMap(const MapConfig &map_cfg) {
 
 // --- CREA GRID MAP da OccupancyGrid ---
 std::shared_ptr<GridMap> createGridMap(const nav_msgs::OccupancyGrid& map_msg) {
-    auto grid_map = std::make_shared<GridMap>(map_msg.info.resolution, 
+    auto grid_map = std::make_unique<GridMap>(map_msg.info.resolution, 
                                                map_msg.info.height, 
                                                map_msg.info.width);
     

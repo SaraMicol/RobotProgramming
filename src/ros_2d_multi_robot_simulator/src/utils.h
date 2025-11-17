@@ -15,7 +15,8 @@ struct MapConfig {
     float resolution;
     float origin_x, origin_y;
     std::vector<std::vector<float>> obstacles;
-};
+    std::string image_file; 
+}; 
 
 // Dichiarazioni delle funzioni
 void parseYAML(const std::string &file, MapConfig &map_cfg, std::vector<RobotConfig> &robots);
