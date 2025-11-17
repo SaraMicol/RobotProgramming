@@ -15,6 +15,7 @@ struct MapConfig {
     float resolution;
     float origin_x, origin_y;
     std::vector<std::vector<float>> obstacles;
+    std::string map_name;
 };
 
 // Dichiarazioni delle funzioni

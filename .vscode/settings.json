@@ -4,5 +4,6 @@
         "string": "cpp",
         "vector": "cpp",
         "random": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator"
 }
