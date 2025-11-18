@@ -183,7 +183,7 @@ void updateUnicycleKinematics(RobotConfig &robot, float dt, const std::shared_pt
     
     ROS_INFO_THROTTLE(1.0, "Robot %s: v_lin=%.2f, v_ang=%.2f", robot.id.c_str(), v_lin, v_ang);
 
-// --- eq cinematica unicycle---
+     // --- eq cinematica unicycle---
     float new_x = robot.x + v_lin * cos(robot.alpha) * dt;
     float new_y = robot.y + v_lin * sin(robot.alpha) * dt;
     float new_alpha = robot.alpha + v_ang * dt;

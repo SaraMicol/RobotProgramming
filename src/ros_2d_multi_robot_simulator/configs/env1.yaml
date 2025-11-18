@@ -50,15 +50,15 @@ robots:
         angle_max: 3.14159           # +180° (destra)
         range:
           min: 0.2
-          max: 10.0
+          max: 20.0
 
   - id: "2"
     frame_id: "robot2_frame"
     radius: 2
     start_position:
-      x: 15
-      y: 15
-      alpha: 3.14159
+      x: 17
+      y: 12
+      alpha: 0.0
     max_velocity:
       linear: 1.0
       angular: 0.5
@@ -71,4 +71,5 @@ robots:
         angle_max: 1.5708            # +90° (destra)
         range:
           min: 0.2
-          max: 5.0
+          max: 20.0
+

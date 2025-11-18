@@ -25,7 +25,7 @@ struct RobotGoal {
     bool has_goal;
     double goal_x;
     double goal_y;
-    
+   //inizializzazione
     RobotGoal() : has_goal(false), goal_x(0.0), goal_y(0.0) {}
 };
 
@@ -43,9 +43,6 @@ struct ActiveSensorWithScanner {
 
 std::vector<ActiveSensorWithScanner> active_sensors;
 
-// Dichiarazione forward della funzione
-double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensorWithScanner& sensor);
-
 // Callback per cmd_vel (override manuale)
 void updateCmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg, RobotConfig* robot)
 {
@@ -56,19 +53,19 @@ void updateCmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg, RobotConfig
 // Aggiorna controllo robot verso goal
 void updateRobotControl(RobotConfig* robot, RobotGoal* robot_goal)
 {
-    // se il robot non ha un goal lo fermo
+    // Se il robot non ha un goal, si ferma
     if (!robot_goal->has_goal) {
         robot->current_v_lin = 0.0;
         robot->current_v_ang = 0.0;
         return;
     }
-    
-    //Calcola la distanza tra la posizione attuale del robot (x,y) e il goal (goal_x, goal_y).
+
+    // Calcola distanza dal goal
     double dx = robot_goal->goal_x - robot->x;
     double dy = robot_goal->goal_y - robot->y;
     double dist = sqrt(dx*dx + dy*dy);
 
-    //Se il robot è vicino abbastanza al goal (0.15 m), ferma il robot e segna il goal come raggiunto.
+    // Se è arrivato
     const double GOAL_TOLERANCE = 0.15;
     if (dist < GOAL_TOLERANCE) {
         robot->current_v_lin = 0.0;
@@ -77,70 +74,48 @@ void updateRobotControl(RobotConfig* robot, RobotGoal* robot_goal)
         ROS_INFO("Robot %s: Goal raggiunto!", robot->id.c_str());
         return;
     }
-
-    // angolo verso il goal e quanto robot deve ruotare per raggiungere goal
+    // Calcolo angolo verso il goal
     double target_theta = atan2(dy, dx);
     double angle_diff = target_theta - robot->alpha;
-    while(angle_diff > M_PI) angle_diff -= 2.0*M_PI;
+
+    // Normalizza [-π, π]
+    while(angle_diff > M_PI)  angle_diff -= 2.0*M_PI;
     while(angle_diff < -M_PI) angle_diff += 2.0*M_PI;
 
     const double MAX_LINEAR_VEL = 0.5;
     const double MAX_ANGULAR_VEL = 1.0;
     const double ANGULAR_THRESHOLD = 0.3;
 
+    // Se il robot deve ruotare molto → ruota fermo
     if (fabs(angle_diff) > ANGULAR_THRESHOLD) {
         robot->current_v_lin = 0.0;
-        robot->current_v_ang = std::min(MAX_ANGULAR_VEL, 
-                                       std::max(-MAX_ANGULAR_VEL, 3.0 * angle_diff));
-    } else {
-        double avoid = 0.0;
-        for (const auto& s : active_sensors) {
-            if (s.robot_index == robot->index) {
-                avoid = computeObstacleAvoidance(*robot, s);
-                break;
-            }
-        }
-        double angular = 2.0 * angle_diff + avoid;
-        robot->current_v_lin = std::min(MAX_LINEAR_VEL, 0.8 * dist);
-        if (fabs(avoid) > 0.2) robot->current_v_lin *= 0.4;
         robot->current_v_ang = std::min(MAX_ANGULAR_VEL,
-                                       std::max(-MAX_ANGULAR_VEL, angular));
+                                        std::max(-MAX_ANGULAR_VEL, 3.0 * angle_diff));
+    } 
+    // Altrimenti vai verso il goal
+    else {
+        robot->current_v_lin = std::min(MAX_LINEAR_VEL, 0.8 * dist);
+        robot->current_v_ang = std::min(MAX_ANGULAR_VEL,
+                                        std::max(-MAX_ANGULAR_VEL, 2.0 * angle_diff));
     }
 }
 
-// Evitamento ostacoli
-double computeObstacleAvoidance(const RobotConfig& robot, const ActiveSensorWithScanner& sensor)
-{
-    double avoid_turn = 0.0;
-    const double OBSTACLE_THRESHOLD = 0.6;
-    const double TURN_GAIN = 1.2;
-
-    const auto& ranges = sensor.laser_scan->ranges;
-    int N = ranges.size();
-    if (N == 0) return 0.0;
-
-    double angle_increment = (sensor.laser_scan->angle_max - sensor.laser_scan->angle_min) / N;
-
-    for (int i = 0; i < N; i++) {
-        float d = ranges[i];
-        if (d < OBSTACLE_THRESHOLD && d > 0.01) {
-            float angle = sensor.laser_scan->angle_min + i * angle_increment;
-            avoid_turn -= TURN_GAIN * (OBSTACLE_THRESHOLD - d) * sin(angle);
-        }
-    }
-    return avoid_turn;
-}
 
 // Classe wrapper per WorldItem (necessaria per LaserScanner)
+//fornisce la posa globale del robot in formato Isometry2f ereditando tutte le funzionalità
+// di world item che poi mi serviranno x usare con Laserscanner
 class RobotWorldItem : public WorldItem {
 public:
     RobotConfig* robot;
+    std::shared_ptr<GridMap> map_ptr; 
     
     RobotWorldItem(RobotConfig* rob, std::shared_ptr<GridMap> gmap) 
-        : WorldItem(gmap.get(), nullptr, Isometry2f::Identity()), robot(rob) {
+        : WorldItem(gmap.get(), nullptr, Isometry2f::Identity()), 
+          robot(rob), 
+          map_ptr(gmap) {
+        grid_map = gmap.get();
     }
     
-    // Rimuovi override se il metodo non è virtuale nella classe base
     Isometry2f globalPose() const {
         Isometry2f pose = Isometry2f::Identity();
         pose.translation() = Vector2f(robot->x, robot->y);
@@ -158,6 +133,7 @@ int main(int argc, char** argv) {
 
     // --- Percorso YAML e lettura robot ---
     std::string yaml_file = "/home/lattinone/RobotProgramming/src/ros_2d_multi_robot_simulator/configs/env1.yaml";
+    //questo ora non serve , ma può essere usato nel caso voglia personalizzare la mappa
     MapConfig map_cfg;  
     std::vector<RobotConfig> robots;
     parseYAML(yaml_file, map_cfg, robots);
@@ -168,6 +144,7 @@ int main(int argc, char** argv) {
     ROS_INFO("Mappa caricata dal file: %s", map_image_path.c_str());
 
     // --- Inizializza GridMap ---
+    // sto ancora usando la resolution dal mio file yaml
     std::shared_ptr<GridMap> grid_map = std::make_shared<GridMap>(0, 0, map_cfg.resolution);
     grid_map->loadFromImage(map_image_path.c_str(), map_cfg.resolution);
     ROS_INFO("GridMap inizializzata: %d x %d celle, risoluzione %.3f", grid_map->rows, grid_map->cols, grid_map->resolution());
@@ -231,6 +208,7 @@ int main(int argc, char** argv) {
 
     // --- Inizializzazione laser con LaserScanner ---
     for (size_t ri = 0; ri < robots.size(); ++ri) {
+        int laser_count = 0;
         for (const auto &s : robots[ri].sensors) {
             if (s.type == "lidar" || s.type == "laser") {
                 ActiveSensorWithScanner as;
@@ -240,8 +218,10 @@ int main(int argc, char** argv) {
                 as.frame_id = s.frame_id;
                 as.laser_scan = std::make_shared<LaserScan>(s.range_min, s.range_max, s.angle_min, s.angle_max, s.beams);
                 
+                // Posa del sensore (Identity = sensore montato al centro del robot)
+                Isometry2f sensor_pose = Isometry2f::Identity();
+                
                 // Crea LaserScanner con frequenza di 10 Hz
-                Isometry2f sensor_pose = Isometry2f::Identity(); // Il sensore è nel frame del robot
                 as.laser_scanner = std::make_shared<LaserScanner>(
                     *as.laser_scan,
                     *robot_world_items[ri],
@@ -249,9 +229,18 @@ int main(int argc, char** argv) {
                     10.0f // frequenza 10 Hz
                 );
                 
+                // accesso di ogni laser aalla grid map
+                as.laser_scanner->grid_map = grid_map.get();
+                
                 active_sensors.push_back(as);
-                ROS_INFO("Robot %s: Laser pubblicato su %s", robots[ri].id.c_str(), s.topic.c_str());
+                laser_count++;
+                ROS_INFO("Robot %s: Laser #%d (%s) pubblicato su %s - range[%.2f, %.2f], angle[%.2f, %.2f], beams=%d", 
+                         robots[ri].id.c_str(), laser_count, s.frame_id.c_str(), s.topic.c_str(),
+                         s.range_min, s.range_max, s.angle_min, s.angle_max, s.beams);
             }
+        }
+        if (laser_count > 0) {
+            ROS_INFO("Robot %s: Totale %d laser configurati", robots[ri].id.c_str(), laser_count);
         }
     }
 
@@ -269,7 +258,8 @@ int main(int argc, char** argv) {
         publishTF(tf_broadcaster, robots);
 
         // --- Simula LaserScan usando LaserScanner ---
-        for (auto &as : active_sensors) {
+        for (size_t i = 0; i < active_sensors.size(); ++i) {
+            auto &as = active_sensors[i];
             // Chiama tick per aggiornare lo scan
             as.laser_scanner->tick(dt);
             
@@ -288,6 +278,9 @@ int main(int argc, char** argv) {
                 scan_msg.ranges = as.laser_scan->ranges;
 
                 as.pub.publish(scan_msg);
+                
+                ROS_DEBUG("Pubblicato scan per laser #%lu (%s) del robot %d - %lu ranges", 
+                          i, as.frame_id.c_str(), as.robot_index, as.laser_scan->ranges.size());
             }
         }
 
