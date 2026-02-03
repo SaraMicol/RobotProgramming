@@ -12,8 +12,9 @@ The final system is compatible with the ROS navigation stack and can be used for
 The correct and stable code is maintained on the `master` branch.
 
 To run the simulator, follow these steps:
-
+'''
 cd ~/RobotProgramming
 catkin_make
 source devel/setup.bash
 roslaunch ros_2d_multi_robot_simulator navigation.launch
+'''
