@@ -1,4 +1,4 @@
-###2D Multi Robot ROS simulator
+### 2D Multi Robot ROS simulator
 
 This project consists of the development of a configurable 2D multi-robot simulator written in C++ and fully integrated with ROS.
 The simulator supports grid-based maps, unicycle-like mobile robots and 2D laser scanners.
