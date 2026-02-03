@@ -13,8 +13,6 @@ The correct and stable code is maintained on the `master` branch.
 
 To run the simulator, follow these steps:
 ```
-
-
 cd ~/RobotProgramming
 
 
@@ -25,4 +23,4 @@ source devel/setup.bash
 
 
 roslaunch ros_2d_multi_robot_simulator navigation.launch
-` 
+
